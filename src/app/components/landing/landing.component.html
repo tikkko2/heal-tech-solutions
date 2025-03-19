@@ -1,0 +1,1324 @@
+<app-particles></app-particles>
+
+<div class="min-h-screen bg-black text-gray-100 flex flex-col">
+  <!-- Navbar - Simple version for single page -->
+  <nav class="sticky top-4 z-50 mx-5">
+    <div
+      class="container-fluid mx-auto px-4 py-3 max-w-[1700px] bg-black rounded-xl"
+      [ngClass]="{ 'shadow-lg': isScrolled }"
+    >
+      <div class="flex justify-between items-center">
+        <!-- Company Name -->
+        <div class="flex items-center">
+          <a
+            href="#"
+            class="company-name text-xl font-medium text-white relative"
+          >
+            HEAL TECH SOLUTIONS
+            <span class="border-grow"></span>
+          </a>
+        </div>
+
+        <!-- Navigation Links (Centered) -->
+        <div class="hidden md:flex space-x-8">
+          <a
+            href="#services"
+            class="text-gray-300 hover:text-[#60dee7] transition duration-300"
+          >
+            Services
+          </a>
+          <a
+            href="#pricing"
+            class="text-gray-300 hover:text-[#60dee7] transition duration-300"
+          >
+            Pricing
+          </a>
+          <a
+            href="#about"
+            class="text-gray-300 hover:text-[#60dee7] transition duration-300"
+          >
+            About
+          </a>
+          <a
+            href="#contact"
+            class="text-gray-300 hover:text-[#60dee7] transition duration-300"
+          >
+            Contact
+          </a>
+        </div>
+        <div>
+          <button
+            class="border border-[#60dee7] text-[#60dee7] hover:bg-[#60dee7] cursor-pointer hover:text-black px-6 py-3 rounded-lg transition duration-300 transform hover:scale-105 hover:shadow-glow"
+          >
+            Pro Service
+          </button>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden">
+          <button
+            class="text-gray-300 hover:text-[#60dee7] focus:outline-none"
+            (click)="toggleMobileMenu()"
+          >
+            <svg
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Dropdown Menu -->
+      <div
+        class="mt-4 space-y-2 md:hidden"
+        [ngClass]="{ hidden: !isMobileMenuOpen }"
+      >
+        <a
+          href="#services"
+          class="block text-gray-300 hover:text-[#60dee7] transition duration-300"
+        >
+          Services
+        </a>
+        <a
+          href="#pricing"
+          class="block text-gray-300 hover:text-[#60dee7] transition duration-300"
+        >
+          Pricing
+        </a>
+        <a
+          href="#about"
+          class="block text-gray-300 hover:text-[#60dee7] transition duration-300"
+        >
+          About
+        </a>
+        <a
+          href="#contact"
+          class="block text-gray-300 hover:text-[#60dee7] transition duration-300"
+        >
+          Contact
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <div class="main-content flex-grow px-10">
+    <!-- Hero Section with Animation -->
+    <section id="hero" class="py-20 min-h-[90vh]">
+      <div class="container mx-auto px-4 scroll-fade">
+        <div
+          class="flex flex-col md:flex-row items-center justify-center text-center"
+        >
+          <div
+            class="md:w-1/2 mb-10 md:mb-0 md:pr-10"
+            data-aos="fade-right"
+            data-aos-duration="1000"
+            data-aos-once="false"
+          >
+            <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+              Building
+              <span class="text-[#60dee7] animate-pulse">Powerful</span> Web
+              Experiences
+            </h1>
+            <p class="text-lg text-gray-300 mb-8">
+              We craft modern, responsive, and high-performance websites using
+              cutting-edge technologies like .NET, Angular, and robust database
+              solutions.
+            </p>
+            <div
+              class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center"
+            >
+              <button
+                class="bg-[#44ced8] cursor-pointer hover:bg-[#2ba9b3] text-black px-6 py-3 rounded-lg transition duration-300 transform hover:scale-105 hover:shadow-glow"
+              >
+                Our Services
+              </button>
+              <button
+                class="border border-[#60dee7] cursor-pointer text-[#60dee7] hover:bg-[#60dee7] hover:text-black px-6 py-3 rounded-lg transition duration-300 transform hover:scale-105 hover:shadow-glow"
+              >
+                Contact Us
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- <app-code-display> </app-code-display> -->
+    <!-- <div class="container mx-auto">
+      <div class="info-container">
+        <div class="card left-top-card scroll-fade">
+          <button class="share-btn">SHARE LOCATION</button>
+          <h1>
+            Easy connect,<br />Easy sharing with
+            <span class="highlight">Heyoo</span>
+          </h1>
+          <div class="expanded-content">
+            <p>
+              Share your location with friends and family effortlessly. Heyoo
+              makes staying connected simple and secure.
+            </p>
+          </div>
+        </div>
+
+        <div class="card right-card scroll-fade">
+          <div class="phone-mockup">
+            <img
+              src="https://images.pexels.com/photos/3680219/pexels-photo-3680219.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              alt="Phone mockup showing map with location pins and user avatars"
+            />
+            <div class="expanded-content">
+              <p>
+                Real-time tracking with an intuitive interface. See where your
+                friends are at a glance.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card left-bottom-card scroll-fade">
+          <div class="person-image">
+            <img
+              src="https://images.pexels.com/photos/3680219/pexels-photo-3680219.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              alt="Person using the Heyoo app on their phone"
+            />
+            <div class="expanded-content">
+              <p>
+                Stay connected on the go. Heyoo works seamlessly everywhere you
+                are.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card center-card scroll-fade">
+          <div class="feature-text">
+            <p>
+              Connect friends quickly with group location sharing. Update
+              friends location anytime, anywhere in real time. Easier to find
+              each other!
+            </p>
+            <div class="expanded-content">
+              <ul>
+                <li>Create custom groups for different occasions</li>
+                <li>Set time limits for location sharing</li>
+                <li>Get notifications when friends arrive</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- About/Company Info Section -->
+    <section id="about" class="py-20 scroll-fade">
+      <div class="container mx-auto px-4">
+        <div
+          class="text-center mb-16"
+          data-aos="fade-up"
+          data-aos-duration="800"
+        >
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">About Our Company</h2>
+          <div
+            class="w-20 h-1 bg-[#60dee7] mx-auto transform transition-all duration-500 hover:w-40"
+          ></div>
+        </div>
+        <div class="flex flex-col md:flex-row items-center">
+          <div
+            class="md:w-1/2 mb-10 md:mb-0 md:pr-10"
+            data-aos="fade-right"
+            data-aos-duration="1000"
+          >
+            <div class="relative">
+              <!-- Animated background shape -->
+              <div
+                class="absolute -inset-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg opacity-20 blur-xl animate-pulse-slow"
+              ></div>
+              <img
+                src="/api/placeholder/600/400"
+                alt="Our Team"
+                class="relative rounded-lg shadow-2xl w-full transform transition-all duration-500 hover:scale-105"
+              />
+            </div>
+          </div>
+          <div
+            class="md:w-1/2"
+            data-aos="fade-left"
+            data-aos-duration="1000"
+            data-aos-delay="200"
+          >
+            <h3 class="text-2xl font-bold mb-4 text-[#60dee7]">
+              We're Web Solution Experts
+            </h3>
+            <p class="text-gray-300 mb-6">
+              Founded in 2015, our team of experienced developers specializes in
+              creating custom web solutions for businesses of all sizes. We
+              pride ourselves on delivering high-quality projects on time and
+              within budget.
+            </p>
+            <p class="text-gray-300 mb-6">
+              Our technical expertise spans across .NET framework, various
+              database technologies, Angular development, and related front-end
+              technologies. We're committed to staying at the forefront of web
+              development to provide our clients with modern, secure, and
+              scalable solutions.
+            </p>
+            <div class="grid grid-cols-2 gap-4 mt-8">
+              <div
+                class="flex items-center transform transition-all duration-300 hover:translate-x-2"
+              >
+                <div
+                  class="h-12 w-12 rounded-full bg-blue-600 flex items-center justify-center mr-4 animate-pulse"
+                >
+                  <svg
+                    class="h-6 w-6 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    ></path>
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-medium">Quality Focused</h4>
+                </div>
+              </div>
+              <div
+                class="flex items-center transform transition-all duration-300 hover:translate-x-2"
+              >
+                <div
+                  class="h-12 w-12 rounded-full bg-blue-600 flex items-center justify-center mr-4"
+                >
+                  <svg
+                    class="h-6 w-6 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    ></path>
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-medium">Always On Time</h4>
+                </div>
+              </div>
+              <div
+                class="flex items-center transform transition-all duration-300 hover:translate-x-2"
+              >
+                <div
+                  class="h-12 w-12 rounded-full bg-blue-600 flex items-center justify-center mr-4"
+                >
+                  <svg
+                    class="h-6 w-6 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13 10V3L4 14h7v7l9-11h-7z"
+                    ></path>
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-medium">Fast & Efficient</h4>
+                </div>
+              </div>
+              <div
+                class="flex items-center transform transition-all duration-300 hover:translate-x-2"
+              >
+                <div
+                  class="h-12 w-12 rounded-full bg-blue-600 flex items-center justify-center mr-4"
+                >
+                  <svg
+                    class="h-6 w-6 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                    ></path>
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-medium">Client Support</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="w-full mx-auto container">
+      <!-- Header -->
+      <div class="mb-12">
+        <h1 class="text-5xl font-bold mb-4">Pricing</h1>
+        <p class="text-xl mb-8">Choose the plan that works for you</p>
+      </div>
+
+      <!-- Pricing Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Starter Plan -->
+        <div class="pricing-card starter-card p-8 flex flex-col h-full">
+          <h2 class="text-2xl font-bold mb-4">Starter</h2>
+          <div class="mb-6">
+            <span class="text-4xl font-bold">$1,500+</span>
+            <span class="text-gray-500"> per project</span>
+          </div>
+
+          <ul class="space-y-4 mb-8">
+            <li class="checkmark-green flex items-start">
+              Basic website development
+            </li>
+            <li class="checkmark-green flex items-start">Responsive design</li>
+            <li class="checkmark-green flex items-start">SEO basics</li>
+            <li class="checkmark-green flex items-start">30-day support</li>
+            <li class="checkmark-green flex items-start">
+              Cloud deployment (basic)
+            </li>
+            <li class="cross-red flex items-start text-gray-400">
+              Internal systems development
+            </li>
+            <li class="cross-red flex items-start text-gray-400">
+              Database management
+            </li>
+            <li class="cross-red flex items-start text-gray-400">
+              CI/CD implementation
+            </li>
+            <li class="cross-red flex items-start text-gray-400">
+              Long-term support
+            </li>
+          </ul>
+
+          <div class="mt-auto">
+            <button
+              class="w-full starter-button font-bold py-4 px-6 rounded-lg text-center"
+            >
+              Get Started
+            </button>
+          </div>
+        </div>
+
+        <!-- Professional Plan -->
+        <div class="pricing-card professional-card p-8 flex flex-col h-full">
+          <h2 class="text-2xl font-bold mb-4">Professional</h2>
+          <div class="mb-6">
+            <span class="text-4xl font-bold">$5,000+</span>
+            <span class="text-gray-500"> per project</span>
+          </div>
+
+          <ul class="space-y-4 mb-8">
+            <li class="checkmark-green flex items-start">
+              Advanced website development
+            </li>
+            <li class="checkmark-green flex items-start">Responsive design</li>
+            <li class="checkmark-green flex items-start">SEO optimization</li>
+            <li class="checkmark-green flex items-start">90-day support</li>
+            <li class="checkmark-green flex items-start">
+              Cloud deployment (advanced)
+            </li>
+            <li class="checkmark-green flex items-start">
+              Basic internal systems
+            </li>
+            <li class="checkmark-green flex items-start">
+              Database implementation
+            </li>
+            <li class="checkmark-green flex items-start">Basic CI/CD setup</li>
+            <li class="cross-red flex items-start text-gray-400">
+              Long-term support options
+            </li>
+          </ul>
+
+          <div class="mt-auto">
+            <button
+              class="w-full professional-button font-bold py-4 px-6 rounded-lg text-center"
+            >
+              Choose Professional
+            </button>
+          </div>
+        </div>
+
+        <!-- Enterprise Plan -->
+        <div class="pricing-card enterprise-card p-8 flex flex-col h-full">
+          <h2 class="text-2xl font-bold mb-4">Enterprise</h2>
+          <div class="mb-6">
+            <span class="text-4xl font-bold">$15,000+</span>
+            <span class="text-gray-500"> per project</span>
+          </div>
+
+          <ul class="space-y-4 mb-8">
+            <li class="checkmark-green flex items-start">
+              Enterprise-level development
+            </li>
+            <li class="checkmark-green flex items-start">
+              Scalable architecture
+            </li>
+            <li class="checkmark-green flex items-start">Full SEO strategy</li>
+            <li class="checkmark-green flex items-start">
+              6-month support included
+            </li>
+            <li class="checkmark-green flex items-start">
+              Advanced cloud architecture
+            </li>
+            <li class="checkmark-green flex items-start">
+              Complex internal systems
+            </li>
+            <li class="checkmark-green flex items-start">
+              Complete database management
+            </li>
+            <li class="checkmark-green flex items-start">
+              Full CI/CD implementation
+            </li>
+            <li class="checkmark-green flex items-start">
+              Extended support plans
+            </li>
+          </ul>
+
+          <div class="mt-auto">
+            <button
+              class="w-full enterprise-button font-bold py-4 px-6 rounded-lg text-center"
+            >
+              Contact Sales
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Services Section -->
+      <section id="services" class="py-20 bg-black">
+        <div class="container mx-auto px-4 scroll-fade">
+          <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Services</h2>
+            <div
+              class="w-20 h-1 bg-[#60dee7] mx-auto transform transition-all duration-500 hover:w-40"
+            ></div>
+            <p class="text-gray-300 mt-6 max-w-3xl mx-auto">
+              Comprehensive technical solutions for businesses of all sizes.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            <!-- Custom Website Development -->
+            <div
+              class="bg-black scroll-fade border border-gray-800 rounded-lg p-8 transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:border-[#60dee7]"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <div
+                class="h-14 w-14 bg-blue-600 rounded-lg flex items-center justify-center mb-6 animate-pulse-slow"
+              >
+                <svg
+                  class="h-8 w-8 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold mb-4 text-[#60dee7]">
+                Custom Website Development
+              </h3>
+              <ul class="space-y-3 text-gray-300">
+                <li class="flex items-start">
+                  <svg
+                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Websites of all types and complexity levels
+                </li>
+                <li class="flex items-start">
+                  <svg
+                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Responsive design for all devices
+                </li>
+                <li class="flex items-start">
+                  <svg
+                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Modern frameworks and technologies
+                </li>
+                <li class="flex items-start">
+                  <svg
+                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  SEO optimization
+                </li>
+              </ul>
+            </div>
+
+            <!-- Internal Systems Development -->
+            <div
+              class="bg-black scroll-fade border border-gray-800 rounded-lg p-8 transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:border-[#60dee7]"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              <div
+                class="h-14 w-14 bg-blue-600 rounded-lg flex items-center justify-center mb-6 animate-pulse-slow"
+              >
+                <svg
+                  class="h-8 w-8 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold mb-4 text-[#60dee7]">
+                Internal Systems Development
+              </h3>
+              <ul class="space-y-3 text-gray-300">
+                <li class="flex items-start">
+                  <svg
+                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Custom business applications
+                </li>
+                <li class="flex items-start">
+                  <svg
+                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Workflow automation solutions
+                </li>
+                <li class="flex items-start">
+                  <svg
+                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Process optimization systems
+                </li>
+                <li class="flex items-start">
+                  <svg
+                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Enterprise resource planning
+                </li>
+              </ul>
+            </div>
+
+            <!-- Cloud Deployment -->
+            <div
+              class="bg-black border border-gray-800 rounded-lg p-8 transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:border-[#60dee7]"
+              data-aos="fade-up"
+              data-aos-delay="300"
+            >
+              <div
+                class="h-14 w-14 bg-blue-600 rounded-lg flex items-center justify-center mb-6 animate-pulse-slow"
+              >
+                <svg
+                  class="h-8 w-8 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold mb-4 text-[#60dee7]">
+                Cloud Deployment
+              </h3>
+              <ul class="space-y-3 text-gray-300">
+                <li class="flex items-start">
+                  <svg
+                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  AWS and Azure infrastructure setup
+                </li>
+                <li class="flex items-start">
+                  <svg
+                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Migration to cloud platforms
+                </li>
+                <li class="flex items-start">
+                  <svg
+                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Infrastructure optimization
+                </li>
+                <li class="flex items-start">
+                  <svg
+                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Secure cloud architecture
+                </li>
+              </ul>
+            </div>
+
+            <!-- Database Management -->
+            <div
+              class="bg-black border border-gray-800 rounded-lg p-8 transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:border-[#60dee7]"
+              data-aos="fade-up"
+              data-aos-delay="400"
+            >
+              <div
+                class="h-14 w-14 bg-blue-600 rounded-lg flex items-center justify-center mb-6 animate-pulse-slow"
+              >
+                <svg
+                  class="h-8 w-8 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold mb-4 text-[#60dee7]">
+                Database Management
+              </h3>
+              <ul class="space-y-3 text-gray-300">
+                <li class="flex items-start">
+                  <svg
+                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Database design and implementation
+                </li>
+                <li class="flex items-start">
+                  <svg
+                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Performance optimization
+                </li>
+                <li class="flex items-start">
+                  <svg
+                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Data security and protection
+                </li>
+                <li class="flex items-start">
+                  <svg
+                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Ongoing database support
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-8">
+            <!-- CI/CD Implementation -->
+            <div
+              class="bg-black border border-gray-800 rounded-lg p-8 transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:border-[#60dee7]"
+              data-aos="fade-up"
+              data-aos-delay="500"
+            >
+              <div
+                class="h-14 w-14 bg-blue-600 rounded-lg flex items-center justify-center mb-6 animate-pulse-slow"
+              >
+                <svg
+                  class="h-8 w-8 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold mb-4 text-[#60dee7]">
+                CI/CD Implementation
+              </h3>
+              <ul class="space-y-3 text-gray-300">
+                <li class="flex items-start">
+                  <svg
+                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Automated testing and deployment
+                </li>
+                <li class="flex items-start">
+                  <svg
+                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Development workflow streamlining
+                </li>
+                <li class="flex items-start">
+                  <svg
+                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Code quality assurance
+                </li>
+                <li class="flex items-start">
+                  <svg
+                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Release management
+                </li>
+              </ul>
+            </div>
+
+            <!-- Scalable Applications -->
+            <div
+              class="bg-black border border-gray-800 rounded-lg p-8 transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:border-[#60dee7]"
+              data-aos="fade-up"
+              data-aos-delay="600"
+            >
+              <div
+                class="h-14 w-14 bg-blue-600 rounded-lg flex items-center justify-center mb-6 animate-pulse-slow"
+              >
+                <svg
+                  class="h-8 w-8 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold mb-4 text-[#60dee7]">
+                Scalable Applications
+              </h3>
+              <ul class="space-y-3 text-gray-300">
+                <li class="flex items-start">
+                  <svg
+                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Solutions that grow with your business
+                </li>
+                <li class="flex items-start">
+                  <svg
+                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  High-performance under increased load
+                </li>
+                <li class="flex items-start">
+                  <svg
+                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Modular architecture design
+                </li>
+                <li class="flex items-start">
+                  <svg
+                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  Efficient resource utilization
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Engagement Options section -->
+          <div class="mt-16">
+            <h3
+              class="text-2xl font-bold mb-6 text-[#60dee7] text-center"
+              data-aos="fade-up"
+            >
+              Engagement Options
+            </h3>
+            <div
+              class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8"
+            >
+              <div
+                class="bg-black border border-gray-800 rounded-lg p-6 text-center transform transition-all duration-300 hover:scale-105 hover:border-[#60dee7]"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
+                <div class="mx-auto mb-4">
+                  <svg
+                    class="h-10 w-10 text-[#60dee7] mx-auto"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    />
+                  </svg>
+                </div>
+                <h4 class="text-lg font-medium mb-3 text-gray-100">
+                  One-time project development
+                </h4>
+              </div>
+
+              <div
+                class="bg-black border border-gray-800 rounded-lg p-6 text-center transform transition-all duration-300 hover:scale-105 hover:border-[#60dee7]"
+                data-aos="fade-up"
+                data-aos-delay="200"
+              >
+                <div class="mx-auto mb-4">
+                  <svg
+                    class="h-10 w-10 text-[#60dee7] mx-auto"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </div>
+                <h4 class="text-lg font-medium mb-3 text-gray-100">
+                  Long-term maintenance and support
+                </h4>
+              </div>
+
+              <div
+                class="bg-black border border-gray-800 rounded-lg p-6 text-center transform transition-all duration-300 hover:scale-105 hover:border-[#60dee7]"
+                data-aos="fade-up"
+                data-aos-delay="300"
+              >
+                <div class="mx-auto mb-4">
+                  <svg
+                    class="h-10 w-10 text-[#60dee7] mx-auto"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
+                    />
+                  </svg>
+                </div>
+                <h4 class="text-lg font-medium mb-3 text-gray-100">
+                  Technical consultations
+                </h4>
+              </div>
+
+              <div
+                class="bg-black border border-gray-800 rounded-lg p-6 text-center transform transition-all duration-300 hover:scale-105 hover:border-[#60dee7]"
+                data-aos="fade-up"
+                data-aos-delay="400"
+              >
+                <div class="mx-auto mb-4">
+                  <svg
+                    class="h-10 w-10 text-[#60dee7] mx-auto"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                    />
+                  </svg>
+                </div>
+                <h4 class="text-lg font-medium mb-3 text-gray-100">
+                  System audits and optimizations
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills Section -->
+      <section id="skills" class="py-20">
+        <div class="container mx-auto px-4">
+          <div
+            class="text-center mb-16"
+            data-aos="fade-up"
+            data-aos-duration="800"
+          >
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Expertise</h2>
+            <div
+              class="w-20 h-1 bg-[#60dee7] mx-auto transform transition-all duration-500 hover:w-40"
+            ></div>
+            <p class="text-gray-300 mt-6 max-w-3xl mx-auto">
+              Our team brings deep technical knowledge and experience to every
+              project.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+            <!-- Skill 1 -->
+            <div
+              class="flex flex-col items-center p-6 bg-black border border-gray-800 rounded-lg transform transition-all duration-300 hover:scale-105 hover:border-[#60dee7]"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <div
+                class="h-16 w-16 rounded-full flex items-center justify-center mb-4 bg-gradient-to-r from-blue-600 to-blue-400 animate-pulse-slow"
+              >
+                <span class="text-2xl font-bold">.NET</span>
+              </div>
+              <div class="text-center">
+                <h3 class="text-lg font-bold mb-2 text-[#60dee7]">.NET Core</h3>
+                <p class="text-gray-400 text-sm">
+                  ASP.NET, MVC, Web API, Entity Framework
+                </p>
+              </div>
+            </div>
+
+            <!-- Skill 2 -->
+            <div
+              class="flex flex-col items-center p-6 bg-black border border-gray-800 rounded-lg transform transition-all duration-300 hover:scale-105 hover:border-[#60dee7]"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              <div
+                class="h-16 w-16 rounded-full flex items-center justify-center mb-4 bg-gradient-to-r from-blue-600 to-purple-500 animate-pulse-slow"
+              >
+                <span class="text-2xl font-bold">SQL</span>
+              </div>
+              <div class="text-center">
+                <h3 class="text-lg font-bold mb-2 text-[#60dee7]">Databases</h3>
+                <p class="text-gray-400 text-sm">
+                  SQL Server, PostgreSQL, MongoDB, Redis
+                </p>
+              </div>
+            </div>
+
+            <!-- Skill 3 -->
+            <div
+              class="flex flex-col items-center p-6 bg-black border border-gray-800 rounded-lg transform transition-all duration-300 hover:scale-105 hover:border-[#60dee7]"
+              data-aos="fade-up"
+              data-aos-delay="300"
+            >
+              <div
+                class="h-16 w-16 rounded-full flex items-center justify-center mb-4 bg-gradient-to-r from-red-500 to-red-300 animate-pulse-slow"
+              >
+                <span class="text-2xl font-bold">Ng</span>
+              </div>
+              <div class="text-center">
+                <h3 class="text-lg font-bold mb-2 text-[#60dee7]">Angular</h3>
+                <p class="text-gray-400 text-sm">
+                  Angular 19, RxJS, NgRx, Material
+                </p>
+              </div>
+            </div>
+
+            <!-- Skill 4 -->
+            <div
+              class="flex flex-col items-center p-6 bg-black border border-gray-800 rounded-lg transform transition-all duration-300 hover:scale-105 hover:border-[#60dee7]"
+              data-aos="fade-up"
+              data-aos-delay="400"
+            >
+              <div
+                class="h-16 w-16 rounded-full flex items-center justify-center mb-4 bg-gradient-to-r from-blue-400 to-green-400 animate-pulse-slow"
+              >
+                <span class="text-2xl font-bold">UI</span>
+              </div>
+              <div class="text-center">
+                <h3 class="text-lg font-bold mb-2 text-[#60dee7]">Front-End</h3>
+                <p class="text-gray-400 text-sm">
+                  HTML5, CSS3, Tailwind, JavaScript
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Simple Footer with just copyright -->
+    <footer class="bg-black border-t border-gray-800 py-6">
+      <div class="container mx-auto px-4">
+        <div class="text-center text-gray-400">
+          <p class="animate-pulse-slow">
+            © 2025 WebCraft. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>

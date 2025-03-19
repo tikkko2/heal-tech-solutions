@@ -1,0 +1,48 @@
+<div class="container mx-auto my-10">
+  <!-- services-display.component.html -->
+  <div class="services-display-container">
+    <div class="header">
+      <div class="left-section">
+        <h1>Works with your stack</h1>
+        <p class="subtitle">
+          Integrate it into your language or framework within minutes and unlock
+          a simpler developer workflow.
+        </p>
+        <a href="#" class="see-all">See all examples →</a>
+      </div>
+    </div>
+
+    <div class="service-block-container">
+      <div class="service-tabs">
+        <button
+          *ngFor="let service of services"
+          [class.active]="selectedService === service"
+          (click)="selectService(service)"
+          class="service-tab"
+        >
+          <span class="service-icon">{{ getServiceIcon(service) }}</span>
+          <span class="service-name">{{ service }}</span>
+        </button>
+      </div>
+
+      <div class="service-content" *ngIf="serviceInfo[selectedService]">
+        <h2 class="service-title">{{ serviceInfo[selectedService].title }}</h2>
+        <div class="features-list">
+          <div
+            class="feature-item"
+            *ngFor="
+              let feature of serviceInfo[selectedService].features;
+              let i = index
+            "
+          >
+            <span class="feature-number">{{ i + 1 }}</span>
+            <div class="feature-content">
+              <span class="checkmark">✓</span>
+              <span class="feature-text">{{ feature }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
