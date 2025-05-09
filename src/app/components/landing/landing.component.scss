@@ -1,5 +1,6 @@
-// Company name with infinite border animation
+// src/app/components/landing/landing.component.scss
 
+// Company name with infinite border animation
 .company-name {
   position: relative;
   display: inline-block;
@@ -12,12 +13,9 @@
   bottom: 0;
   height: 2px;
   border-radius: 100%;
-  background-color: #60dee7; // [#60dee7] color
+  background-color: #0891b2; // cyan-600
   transform: translateX(-50%);
-  // box-shadow: #60dee7 0px 7px 29px 0px;
-  box-shadow: #60dee7 0px 3px 8px;
-  // box-shadow: #60dee7 0px 54px 55px, #60dee7 0px -12px 30px, #60dee7 0px 4px 6px,
-  //   #60dee7 0px 12px 13px, #60dee7 0px -3px 5px;
+  box-shadow: #0891b2 0px 3px 8px;
   animation: borderGrow 3s ease-in-out infinite;
 }
 
@@ -48,254 +46,119 @@
   }
 }
 
-$primary-color: #00a8ff;
-$bg-color: #111827;
-$card-bg-color: #1f2937;
-$text-color: #ffffff;
-$transition-time: 0.4s;
-
-// Container for the entire layout
-.info-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 20px;
-  width: 100%;
-  height: 600px;
-  position: relative;
-  margin: auto;
-}
-
-// Shared card styles
-.card {
-  background-color: $card-bg-color;
-  border-radius: 20px;
-  padding: 30px;
-  position: relative;
-  overflow: hidden;
-  transition: all $transition-time ease;
-  display: flex;
-  flex-direction: column;
-
-  &:hover {
-    transform: scale(1.05);
-    z-index: 10;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-
-    .expanded-content {
-      opacity: 1;
-      transform: translateY(0);
-    }
+// Animations for the site
+@keyframes pulse-slow {
+  0%,
+  100% {
+    opacity: 1;
   }
-
-  .expanded-content {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all $transition-time ease;
-    margin-top: 20px;
+  50% {
+    opacity: 0.7;
   }
 }
 
-// Specific card styles
-.left-top-card {
-  grid-column: 1;
-  grid-row: 1;
+.animate-pulse-slow {
+  animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
 
-  .share-btn {
-    background-color: transparent;
-    color: $text-color;
-    border: 1px solid $text-color;
-    border-radius: 30px;
-    padding: 8px 15px;
-    font-size: 12px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    width: fit-content;
-    cursor: pointer;
-    transition: all 0.3s ease;
+// Scroll-based animations
+.scroll-fade {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
 
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-  }
+.scroll-fade.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-  h1 {
-    font-size: 32px;
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 15px;
-
-    .highlight {
-      color: $primary-color;
-    }
+// Dark mode adjustments
+:host-context(.dark) {
+  .border-grow {
+    background-color: #22d3ee; // cyan-400 for dark mode
+    box-shadow: #22d3ee 0px 3px 8px;
   }
 }
 
-.right-card {
-  grid-column: 2;
-  grid-row: 1 / span 2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  .phone-mockup {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    img {
-      max-height: 90%;
-      object-fit: contain;
-      border-radius: 20px;
-    }
-  }
-}
-
-.left-bottom-card {
-  grid-column: 1;
-  grid-row: 2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  .person-image {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    img {
-      max-height: 90%;
-      object-fit: cover;
-      border-radius: 10px;
-    }
-  }
-}
-
-.center-card {
-  grid-column: 1;
-  grid-row: 2;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 48%;
-  height: 50%;
-  z-index: 5;
-
-  .feature-text {
-    font-size: 16px;
-    line-height: 1.6;
-
-    ul {
-      list-style-position: inside;
-      margin-top: 15px;
-    }
-  }
-}
-
-// Media queries for responsiveness
+// Responsive styles
 @media (max-width: 768px) {
-  .info-container {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    height: auto;
-  }
-
-  .right-card {
-    grid-column: 1;
-    grid-row: 2;
-  }
-
-  .left-bottom-card {
-    grid-column: 1;
-    grid-row: 3;
-  }
-
-  .center-card {
-    position: relative;
-    grid-column: 1;
-    grid-row: 4;
-    width: 100%;
-    height: auto;
+  .hero-content {
+    text-align: center;
   }
 }
 
-.shadow-lg {
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-}
-
-.pricing-card {
-  border: 1px solid #333;
-  border-radius: 15px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.pricing-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-
-.checkmark-green::before {
-  content: "✓";
-  margin-right: 10px;
-  color: #10b981;
-  font-weight: bold;
-}
-
-.cross-red::before {
-  content: "✕";
-  margin-right: 10px;
-  color: #ef4444;
-  font-weight: bold;
-}
-
-.pricing-card {
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease, all 0.3s ease;
-  button {
-    cursor: pointer;
+// Form styles
+input,
+textarea {
+  &:focus {
+    outline: none;
+    ring-width: 2px;
   }
-  h2 {
-    transition: all 0.3s ease, all 0.3s ease;
-  }
+}
+
+// Service card hover effects
+.service-card {
+  transition: all 0.3s ease;
   &:hover {
-    border: 1px solid #60dee7;
-    button {
-      background-color: #60dee7;
-    }
-    h2 {
-      color: #60dee7;
-    }
+    transform: translateY(-10px);
   }
 }
 
-.pricing-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+// Contact form transitions
+.contact-form-container {
+  transition: all 0.3s ease;
 }
 
-.enterprise-button,
-.starter-button,
-.professional-button {
-  background-color: #f1f5f9;
-  color: #1e293b;
-  transition: background-color 0.3s ease;
+// Add smooth scrolling for anchor links
+html {
+  scroll-behavior: smooth;
 }
 
-.enterprise-button:hover {
-  background-color: #e2e8f0;
+// Shadow styles for dark/light mode
+.shadow-glow {
+  transition: all 0.3s ease;
 }
 
-.starter-button {
-  background-color: #f1f5f9;
-  color: #1e293b;
-  transition: background-color 0.3s ease;
+.light .shadow-glow:hover {
+  box-shadow: 0 0 15px rgba(8, 145, 178, 0.5); // cyan-600 with opacity
 }
 
-.starter-button:hover {
-  background-color: #e2e8f0;
+.dark .shadow-glow:hover {
+  box-shadow: 0 0 15px rgba(34, 211, 238, 0.5); // cyan-400 with opacity
+}
+
+.company-logo-large {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background-color: #0891b2; // cyan-600
+    transition: width 0.5s ease;
+  }
+
+  &:hover::after {
+    width: 80%;
+  }
+}
+
+// Animation for the logo text
+@keyframes textGlow {
+  0%,
+  100% {
+    text-shadow: 0 0 5px rgba(8, 145, 178, 0.2);
+  }
+  50% {
+    text-shadow: 0 0 15px rgba(8, 145, 178, 0.5);
+  }
+}
+
+.company-logo-large .text-4xl {
+  animation: textGlow 3s infinite ease-in-out;
 }

@@ -1,67 +1,105 @@
-<app-particles></app-particles>
+<!-- src/app/components/landing/landing.component.html -->
 
-<div class="min-h-screen bg-black text-gray-100 flex flex-col">
-  <!-- Navbar - Simple version for single page -->
-  <nav class="sticky top-4 z-50 mx-5">
-    <div
-      class="container-fluid mx-auto px-4 py-3 max-w-[1700px] bg-black rounded-xl"
-      [ngClass]="{ 'shadow-lg': isScrolled }"
-    >
+<div class="min-h-screen flex flex-col" [ngClass]="{ dark: isDarkMode }">
+  <app-particles *ngIf="isDarkMode"></app-particles>
+
+  <!-- Navbar -->
+  <nav
+    class="sticky top-0 z-50 w-full transition-colors duration-300"
+    [ngClass]="{
+      'bg-white border-b border-gray-200 shadow-sm': !isDarkMode,
+      'bg-gray-900 border-b border-gray-800': isDarkMode
+    }"
+  >
+    <div class="container-fluid mx-auto px-6 py-4">
       <div class="flex justify-between items-center">
         <!-- Company Name -->
         <div class="flex items-center">
           <a
-            href="#"
-            class="company-name text-xl font-medium text-white relative"
+            (click)="scrollToTop()"
+            style="cursor: pointer"
+            class="company-name text-xl font-medium relative transition-colors duration-300"
+            [ngClass]="{
+              'text-gray-800': !isDarkMode,
+              'text-white': isDarkMode
+            }"
           >
-            HEAL TECH SOLUTIONS
-            <span class="border-grow"></span>
+            <span *ngIf="currentLanguage === 'en'">HEAL TECH SOLUTIONS</span>
+            <span *ngIf="currentLanguage === 'ka'">HEAL TECH SOLUTIONS</span>
+            <span
+              class="border-grow"
+              [ngClass]="{
+                'bg-cyan-600': !isDarkMode,
+                'bg-cyan-400': isDarkMode
+              }"
+            ></span>
           </a>
         </div>
 
-        <!-- Navigation Links (Centered) -->
+        <!-- Navigation Links -->
         <div class="hidden md:flex space-x-8">
           <a
-            href="#services"
-            class="text-gray-300 hover:text-[#60dee7] transition duration-300"
+            style="cursor: pointer"
+            (click)="scrollToServices()"
+            class="transition duration-300"
+            [ngClass]="{
+              'text-gray-700 hover:text-cyan-600': !isDarkMode,
+              'text-gray-300 hover:text-cyan-400': isDarkMode
+            }"
           >
-            Services
+            {{ currentLanguage === "en" ? "Services" : "სერვისები" }}
           </a>
           <a
-            href="#pricing"
-            class="text-gray-300 hover:text-[#60dee7] transition duration-300"
+            style="cursor: pointer"
+            (click)="scrollToAbout()"
+            class="transition duration-300"
+            [ngClass]="{
+              'text-gray-700 hover:text-cyan-600': !isDarkMode,
+              'text-gray-300 hover:text-cyan-400': isDarkMode
+            }"
           >
-            Pricing
+            {{ currentLanguage === "en" ? "About" : "ჩვენს შესახებ" }}
           </a>
           <a
-            href="#about"
-            class="text-gray-300 hover:text-[#60dee7] transition duration-300"
+            style="cursor: pointer"
+            (click)="scrollToContact()"
+            class="transition duration-300"
+            [ngClass]="{
+              'text-gray-700 hover:text-cyan-600': !isDarkMode,
+              'text-gray-300 hover:text-cyan-400': isDarkMode
+            }"
           >
-            About
+            {{ currentLanguage === "en" ? "Contact" : "კონტაქტი" }}
           </a>
-          <a
-            href="#contact"
-            class="text-gray-300 hover:text-[#60dee7] transition duration-300"
-          >
-            Contact
-          </a>
-        </div>
-        <div>
-          <button
-            class="border border-[#60dee7] text-[#60dee7] hover:bg-[#60dee7] cursor-pointer hover:text-black px-6 py-3 rounded-lg transition duration-300 transform hover:scale-105 hover:shadow-glow"
-          >
-            Pro Service
-          </button>
         </div>
 
-        <!-- Mobile Menu Button -->
-        <div class="md:hidden">
+        <!-- Controls -->
+        <div class="flex items-center space-x-4">
+          <!-- Language Toggle -->
           <button
-            class="text-gray-300 hover:text-[#60dee7] focus:outline-none"
-            (click)="toggleMobileMenu()"
+            (click)="toggleLanguage()"
+            class="px-3 py-1 rounded-md transition duration-300"
+            [ngClass]="{
+              'bg-gray-100 text-gray-700 hover:bg-gray-200': !isDarkMode,
+              'bg-gray-800 text-gray-300 hover:bg-gray-700': isDarkMode
+            }"
+          >
+            {{ currentLanguage === "en" ? "KA" : "EN" }}
+          </button>
+
+          <!-- Dark Mode Toggle -->
+          <button
+            (click)="toggleDarkMode()"
+            class="p-2 rounded-full transition duration-300"
+            [ngClass]="{
+              'bg-gray-100 text-gray-700 hover:bg-gray-200': !isDarkMode,
+              'bg-gray-700 text-gray-200 hover:bg-gray-600': isDarkMode
+            }"
           >
             <svg
-              class="h-6 w-6"
+              *ngIf="!isDarkMode"
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -70,213 +108,1081 @@
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              ></path>
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+              />
             </svg>
+            <svg
+              *ngIf="isDarkMode"
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+              />
+            </svg>
+          </button>
+
+          <!-- Contact Button -->
+          <button
+            (click)="scrollToContact()"
+            style="cursor: pointer"
+            class="border px-6 py-2 rounded-lg transition duration-300"
+            [ngClass]="{
+              'border-cyan-600 text-cyan-600 hover:bg-cyan-600 hover:text-white':
+                !isDarkMode,
+              'border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-gray-900':
+                isDarkMode
+            }"
+          >
+            {{ currentLanguage === "en" ? "Contact Us" : "დაგვიკავშირდით" }}
           </button>
         </div>
       </div>
-
-      <!-- Mobile Dropdown Menu -->
-      <div
-        class="mt-4 space-y-2 md:hidden"
-        [ngClass]="{ hidden: !isMobileMenuOpen }"
-      >
-        <a
-          href="#services"
-          class="block text-gray-300 hover:text-[#60dee7] transition duration-300"
-        >
-          Services
-        </a>
-        <a
-          href="#pricing"
-          class="block text-gray-300 hover:text-[#60dee7] transition duration-300"
-        >
-          Pricing
-        </a>
-        <a
-          href="#about"
-          class="block text-gray-300 hover:text-[#60dee7] transition duration-300"
-        >
-          About
-        </a>
-        <a
-          href="#contact"
-          class="block text-gray-300 hover:text-[#60dee7] transition duration-300"
-        >
-          Contact
-        </a>
-      </div>
     </div>
   </nav>
-
-  <!-- Main content -->
-  <div class="main-content flex-grow px-10">
-    <!-- Hero Section with Animation -->
-    <section id="hero" class="py-20 min-h-[90vh]">
-      <div class="container mx-auto px-4 scroll-fade">
-        <div
-          class="flex flex-col md:flex-row items-center justify-center text-center"
-        >
+  <!-- Main Content -->
+  <div
+    class="main-content flex-grow px-6 md:px-10 transition-colors duration-300"
+    [ngClass]="{
+      'bg-white text-gray-800': !isDarkMode,
+      'bg-gray-900 text-gray-100': isDarkMode
+    }"
+  >
+    <!-- Hero Section -->
+    <section id="hero" class="py-20 min-h-[90vh] flex items-center">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row items-center justify-between">
           <div
             class="md:w-1/2 mb-10 md:mb-0 md:pr-10"
             data-aos="fade-right"
             data-aos-duration="1000"
-            data-aos-once="false"
           >
             <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-              Building
-              <span class="text-[#60dee7] animate-pulse">Powerful</span> Web
-              Experiences
+              <span *ngIf="currentLanguage === 'en'">
+                Building
+                <span class="text-cyan-500 animate-pulse">Powerful</span>
+                Business Technology Solutions
+              </span>
+              <span *ngIf="currentLanguage === 'ka'">
+                ვქმნით
+                <span class="text-cyan-500 animate-pulse">ძლიერ</span> ბიზნეს
+                ტექნოლოგიურ გადაწყვეტილებებს
+              </span>
             </h1>
-            <p class="text-lg text-gray-300 mb-8">
-              We craft modern, responsive, and high-performance websites using
-              cutting-edge technologies like .NET, Angular, and robust database
-              solutions.
+            <p
+              class="text-lg mb-8"
+              [ngClass]="{
+                'text-gray-600': !isDarkMode,
+                'text-gray-300': isDarkMode
+              }"
+            >
+              <span *ngIf="currentLanguage === 'en'">
+                We craft modern, responsive, and high-performance digital
+                solutions using cutting-edge technologies tailored specifically
+                for your business needs.
+              </span>
+              <span *ngIf="currentLanguage === 'ka'">
+                ჩვენ ვქმნით თანამედროვე, რესპონსიულ და მაღალეფექტურ ციფრულ
+                გადაწყვეტილებებს უახლესი ტექნოლოგიების გამოყენებით, სპეციალურად
+                მორგებულს თქვენი ბიზნესის საჭიროებებზე.
+              </span>
             </p>
             <div
-              class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center"
+              class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"
             >
-              <button
-                class="bg-[#44ced8] cursor-pointer hover:bg-[#2ba9b3] text-black px-6 py-3 rounded-lg transition duration-300 transform hover:scale-105 hover:shadow-glow"
+              <a
+                style="cursor: pointer"
+                (click)="scrollToServices()"
+                class="text-center transition duration-300 transform hover:scale-105 px-6 py-3 rounded-lg"
+                [ngClass]="{
+                  'bg-cyan-600 hover:bg-cyan-700 text-white': !isDarkMode,
+                  'bg-cyan-500 hover:bg-cyan-600 text-gray-900': isDarkMode
+                }"
               >
-                Our Services
-              </button>
-              <button
-                class="border border-[#60dee7] cursor-pointer text-[#60dee7] hover:bg-[#60dee7] hover:text-black px-6 py-3 rounded-lg transition duration-300 transform hover:scale-105 hover:shadow-glow"
+                {{
+                  currentLanguage === "en" ? "Our Services" : "ჩვენი სერვისები"
+                }}
+              </a>
+              <a
+                style="cursor: pointer"
+                (click)="scrollToContact()"
+                class="text-center border transition duration-300 transform hover:scale-105 px-6 py-3 rounded-lg"
+                [ngClass]="{
+                  'border-cyan-600 text-cyan-600 hover:bg-cyan-600 hover:text-white':
+                    !isDarkMode,
+                  'border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-gray-900':
+                    isDarkMode
+                }"
               >
-                Contact Us
-              </button>
+                {{ currentLanguage === "en" ? "Contact Us" : "დაგვიკავშირდით" }}
+              </a>
+            </div>
+          </div>
+          <div
+            class="md:w-1/2 flex justify-center items-center"
+            data-aos="fade-left"
+            data-aos-duration="1000"
+          >
+            <div class="relative">
+              <!-- Subtle glow effect behind the logo -->
+              <div
+                class="absolute -inset-4 bg-gradient-to-r from-cyan-500/30 to-blue-500/30 rounded-lg opacity-70 blur-xl animate-pulse-slow"
+              ></div>
+
+              <!-- Logo container with styling -->
+              <div
+                class="relative backdrop-blur-sm p-10 rounded-lg transform transition-all duration-500 hover:scale-105"
+              >
+                <!-- Logo text styled similar to navbar but larger -->
+                <div class="company-logo-large text-center">
+                  <div
+                    class="text-4xl font-bold mb-2 text-gray-800 dark:text-white"
+                  >
+                    HEAL TECH SOLUTIONS
+                  </div>
+                  <div class="h-1 w-32 mx-auto bg-cyan-500 mb-3"></div>
+                  <div
+                    class="text-xl text-cyan-600 dark:text-cyan-400 font-medium"
+                  >
+                    Business Technology
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-    <!-- <app-code-display> </app-code-display> -->
-    <!-- <div class="container mx-auto">
-      <div class="info-container">
-        <div class="card left-top-card scroll-fade">
-          <button class="share-btn">SHARE LOCATION</button>
-          <h1>
-            Easy connect,<br />Easy sharing with
-            <span class="highlight">Heyoo</span>
-          </h1>
-          <div class="expanded-content">
-            <p>
-              Share your location with friends and family effortlessly. Heyoo
-              makes staying connected simple and secure.
-            </p>
-          </div>
-        </div>
 
-        <div class="card right-card scroll-fade">
-          <div class="phone-mockup">
-            <img
-              src="https://images.pexels.com/photos/3680219/pexels-photo-3680219.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              alt="Phone mockup showing map with location pins and user avatars"
-            />
-            <div class="expanded-content">
-              <p>
-                Real-time tracking with an intuitive interface. See where your
-                friends are at a glance.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="card left-bottom-card scroll-fade">
-          <div class="person-image">
-            <img
-              src="https://images.pexels.com/photos/3680219/pexels-photo-3680219.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              alt="Person using the Heyoo app on their phone"
-            />
-            <div class="expanded-content">
-              <p>
-                Stay connected on the go. Heyoo works seamlessly everywhere you
-                are.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="card center-card scroll-fade">
-          <div class="feature-text">
-            <p>
-              Connect friends quickly with group location sharing. Update
-              friends location anytime, anywhere in real time. Easier to find
-              each other!
-            </p>
-            <div class="expanded-content">
-              <ul>
-                <li>Create custom groups for different occasions</li>
-                <li>Set time limits for location sharing</li>
-                <li>Get notifications when friends arrive</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
-    <!-- About/Company Info Section -->
-    <section id="about" class="py-20 scroll-fade">
+    <!-- Services Section -->
+    <section id="services" class="py-20">
       <div class="container mx-auto px-4">
         <div
           class="text-center mb-16"
           data-aos="fade-up"
           data-aos-duration="800"
         >
-          <h2 class="text-3xl md:text-4xl font-bold mb-4">About Our Company</h2>
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            {{ currentLanguage === "en" ? "Our Services" : "ჩვენი სერვისები" }}
+          </h2>
           <div
-            class="w-20 h-1 bg-[#60dee7] mx-auto transform transition-all duration-500 hover:w-40"
+            class="w-20 h-1 bg-cyan-500 mx-auto transform transition-all duration-500 hover:w-40"
+          ></div>
+          <p
+            class="text-lg mt-6 max-w-3xl mx-auto"
+            [ngClass]="{
+              'text-gray-600': !isDarkMode,
+              'text-gray-300': isDarkMode
+            }"
+          >
+            {{
+              currentLanguage === "en"
+                ? "Comprehensive technical solutions for businesses of all sizes."
+                : "ყველა ზომის ბიზნესისთვის ყოვლისმომცველი ტექნიკური გადაწყვეტილებები."
+            }}
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Service 1: Custom Website Development -->
+          <div
+            class="border rounded-lg p-8 transition duration-300 transform hover:scale-105 hover:shadow-xl"
+            [ngClass]="{
+              'bg-white border-gray-200 hover:border-cyan-500': !isDarkMode,
+              'bg-gray-800 border-gray-700 hover:border-cyan-400': isDarkMode
+            }"
+          >
+            <div
+              class="h-14 w-14 rounded-lg flex items-center justify-center mb-6 animate-pulse-slow"
+              [ngClass]="{
+                'bg-cyan-600': !isDarkMode,
+                'bg-cyan-500': isDarkMode
+              }"
+            >
+              <svg
+                class="h-8 w-8 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-4 text-cyan-500">
+              {{
+                currentLanguage === "en"
+                  ? "Custom Website Development"
+                  : "ვებსაიტების შემუშავება"
+              }}
+            </h3>
+            <ul
+              class="space-y-3"
+              [ngClass]="{
+                'text-gray-600': !isDarkMode,
+                'text-gray-300': isDarkMode
+              }"
+            >
+              <li class="flex items-start">
+                <svg
+                  class="h-5 w-5 text-cyan-500 mr-2 mt-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                {{
+                  currentLanguage === "en"
+                    ? "Business websites and e-commerce"
+                    : "ბიზნეს ვებგვერდები და ელ-კომერცია"
+                }}
+              </li>
+              <li class="flex items-start">
+                <svg
+                  class="h-5 w-5 text-cyan-500 mr-2 mt-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                {{
+                  currentLanguage === "en"
+                    ? "Responsive design for all devices"
+                    : "რესპონსიული დიზაინი ყველა მოწყობილობისთვის"
+                }}
+              </li>
+              <li class="flex items-start">
+                <svg
+                  class="h-5 w-5 text-cyan-500 mr-2 mt-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                {{
+                  currentLanguage === "en"
+                    ? "Modern frameworks and technologies"
+                    : "თანამედროვე ფრეიმვორკები და ტექნოლოგიები"
+                }}
+              </li>
+              <li class="flex items-start">
+                <svg
+                  class="h-5 w-5 text-cyan-500 mr-2 mt-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                {{
+                  currentLanguage === "en"
+                    ? "SEO optimization"
+                    : "SEO ოპტიმიზაცია"
+                }}
+              </li>
+            </ul>
+          </div>
+
+          <!-- Service 2: Internal Systems Development -->
+          <div
+            class="border rounded-lg p-8 transition duration-300 transform hover:scale-105 hover:shadow-xl"
+            [ngClass]="{
+              'bg-white border-gray-200 hover:border-cyan-500': !isDarkMode,
+              'bg-gray-800 border-gray-700 hover:border-cyan-400': isDarkMode
+            }"
+          >
+            <div
+              class="h-14 w-14 rounded-lg flex items-center justify-center mb-6 animate-pulse-slow"
+              [ngClass]="{
+                'bg-cyan-600': !isDarkMode,
+                'bg-cyan-500': isDarkMode
+              }"
+            >
+              <svg
+                class="h-8 w-8 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-4 text-cyan-500">
+              {{
+                currentLanguage === "en"
+                  ? "Business Systems Development"
+                  : "ბიზნეს სისტემების შემუშავება"
+              }}
+            </h3>
+            <ul
+              class="space-y-3"
+              [ngClass]="{
+                'text-gray-600': !isDarkMode,
+                'text-gray-300': isDarkMode
+              }"
+            >
+              <li class="flex items-start">
+                <svg
+                  class="h-5 w-5 text-cyan-500 mr-2 mt-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                {{
+                  currentLanguage === "en"
+                    ? "Custom business applications"
+                    : "მორგებული ბიზნეს აპლიკაციები"
+                }}
+              </li>
+              <li class="flex items-start">
+                <svg
+                  class="h-5 w-5 text-cyan-500 mr-2 mt-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                {{
+                  currentLanguage === "en"
+                    ? "Workflow automation solutions"
+                    : "სამუშაო პროცესის ავტომატიზაცია"
+                }}
+              </li>
+              <li class="flex items-start">
+                <svg
+                  class="h-5 w-5 text-cyan-500 mr-2 mt-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                {{
+                  currentLanguage === "en"
+                    ? "Process optimization systems"
+                    : "პროცესების ოპტიმიზაციის სისტემები"
+                }}
+              </li>
+              <li class="flex items-start">
+                <svg
+                  class="h-5 w-5 text-cyan-500 mr-2 mt-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                {{
+                  currentLanguage === "en"
+                    ? "Enterprise resource planning"
+                    : "საწარმოს რესურსების დაგეგმვა (ERP)"
+                }}
+              </li>
+            </ul>
+          </div>
+
+          <!-- Service 3: Cloud Deployment -->
+          <div
+            class="border rounded-lg p-8 transition duration-300 transform hover:scale-105 hover:shadow-xl"
+            [ngClass]="{
+              'bg-white border-gray-200 hover:border-cyan-500': !isDarkMode,
+              'bg-gray-800 border-gray-700 hover:border-cyan-400': isDarkMode
+            }"
+          >
+            <div
+              class="h-14 w-14 rounded-lg flex items-center justify-center mb-6 animate-pulse-slow"
+              [ngClass]="{
+                'bg-cyan-600': !isDarkMode,
+                'bg-cyan-500': isDarkMode
+              }"
+            >
+              <svg
+                class="h-8 w-8 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"
+                />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-4 text-cyan-500">
+              {{
+                currentLanguage === "en"
+                  ? "Cloud Solutions"
+                  : "ღრუბლოვანი გადაწყვეტილებები"
+              }}
+            </h3>
+            <ul
+              class="space-y-3"
+              [ngClass]="{
+                'text-gray-600': !isDarkMode,
+                'text-gray-300': isDarkMode
+              }"
+            >
+              <li class="flex items-start">
+                <svg
+                  class="h-5 w-5 text-cyan-500 mr-2 mt-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                {{
+                  currentLanguage === "en"
+                    ? "AWS and Azure infrastructure setup"
+                    : "AWS და Azure ინფრასტრუქტურის მოწყობა"
+                }}
+              </li>
+              <li class="flex items-start">
+                <svg
+                  class="h-5 w-5 text-cyan-500 mr-2 mt-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                {{
+                  currentLanguage === "en"
+                    ? "Migration to cloud platforms"
+                    : "მიგრაცია ღრუბლოვან პლატფორმებზე"
+                }}
+              </li>
+              <li class="flex items-start">
+                <svg
+                  class="h-5 w-5 text-cyan-500 mr-2 mt-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                {{
+                  currentLanguage === "en"
+                    ? "Infrastructure optimization"
+                    : "ინფრასტრუქტურის ოპტიმიზაცია"
+                }}
+              </li>
+              <li class="flex items-start">
+                <svg
+                  class="h-5 w-5 text-cyan-500 mr-2 mt-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                {{
+                  currentLanguage === "en"
+                    ? "Secure cloud architecture"
+                    : "უსაფრთხო ღრუბლოვანი არქიტექტურა"
+                }}
+              </li>
+            </ul>
+          </div>
+
+          <!-- Service 4: Database Management -->
+          <div
+            class="border rounded-lg p-8 transition duration-300 transform hover:scale-105 hover:shadow-xl"
+            [ngClass]="{
+              'bg-white border-gray-200 hover:border-cyan-500': !isDarkMode,
+              'bg-gray-800 border-gray-700 hover:border-cyan-400': isDarkMode
+            }"
+          >
+            <div
+              class="h-14 w-14 rounded-lg flex items-center justify-center mb-6 animate-pulse-slow"
+              [ngClass]="{
+                'bg-cyan-600': !isDarkMode,
+                'bg-cyan-500': isDarkMode
+              }"
+            >
+              <svg
+                class="h-8 w-8 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"
+                />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-4 text-cyan-500">
+              {{
+                currentLanguage === "en"
+                  ? "Database Management"
+                  : "მონაცემთა ბაზების მართვა"
+              }}
+            </h3>
+            <ul
+              class="space-y-3"
+              [ngClass]="{
+                'text-gray-600': !isDarkMode,
+                'text-gray-300': isDarkMode
+              }"
+            >
+              <li class="flex items-start">
+                <svg
+                  class="h-5 w-5 text-cyan-500 mr-2 mt-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                {{
+                  currentLanguage === "en"
+                    ? "Database design and implementation"
+                    : "მონაცემთა ბაზის დიზაინი და დანერგვა"
+                }}
+              </li>
+              <li class="flex items-start">
+                <svg
+                  class="h-5 w-5 text-cyan-500 mr-2 mt-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                {{
+                  currentLanguage === "en"
+                    ? "Performance optimization"
+                    : "წარმადობის ოპტიმიზაცია"
+                }}
+              </li>
+              <li class="flex items-start">
+                <svg
+                  class="h-5 w-5 text-cyan-500 mr-2 mt-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                {{
+                  currentLanguage === "en"
+                    ? "Data security and protection"
+                    : "მონაცემთა უსაფრთხოება და დაცვა"
+                }}
+              </li>
+              <li class="flex items-start">
+                <svg
+                  class="h-5 w-5 text-cyan-500 mr-2 mt-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                {{
+                  currentLanguage === "en"
+                    ? "Ongoing database support"
+                    : "მონაცემთა ბაზის მუდმივი მხარდაჭერა"
+                }}
+              </li>
+            </ul>
+          </div>
+
+          <!-- Service 5: CI/CD Implementation -->
+          <div
+            class="border rounded-lg p-8 transition duration-300 transform hover:scale-105 hover:shadow-xl"
+            [ngClass]="{
+              'bg-white border-gray-200 hover:border-cyan-500': !isDarkMode,
+              'bg-gray-800 border-gray-700 hover:border-cyan-400': isDarkMode
+            }"
+          >
+            <div
+              class="h-14 w-14 rounded-lg flex items-center justify-center mb-6 animate-pulse-slow"
+              [ngClass]="{
+                'bg-cyan-600': !isDarkMode,
+                'bg-cyan-500': isDarkMode
+              }"
+            >
+              <svg
+                class="h-8 w-8 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-4 text-cyan-500">
+              {{
+                currentLanguage === "en" ? "DevOps & CI/CD" : "DevOps და CI/CD"
+              }}
+            </h3>
+            <ul
+              class="space-y-3"
+              [ngClass]="{
+                'text-gray-600': !isDarkMode,
+                'text-gray-300': isDarkMode
+              }"
+            >
+              <li class="flex items-start">
+                <svg
+                  class="h-5 w-5 text-cyan-500 mr-2 mt-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                {{
+                  currentLanguage === "en"
+                    ? "Automated testing and deployment"
+                    : "ავტომატიზებული ტესტირება და დეპლოიმენტი"
+                }}
+              </li>
+              <li class="flex items-start">
+                <svg
+                  class="h-5 w-5 text-cyan-500 mr-2 mt-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                {{
+                  currentLanguage === "en"
+                    ? "Development workflow streamlining"
+                    : "განვითარების პროცესის ოპტიმიზაცია"
+                }}
+              </li>
+              <li class="flex items-start">
+                <svg
+                  class="h-5 w-5 text-cyan-500 mr-2 mt-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                {{
+                  currentLanguage === "en"
+                    ? "Code quality assurance"
+                    : "კოდის ხარისხის კონტროლი"
+                }}
+              </li>
+              <li class="flex items-start">
+                <svg
+                  class="h-5 w-5 text-cyan-500 mr-2 mt-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                {{
+                  currentLanguage === "en"
+                    ? "Release management"
+                    : "რელიზების მართვა"
+                }}
+              </li>
+            </ul>
+          </div>
+
+          <!-- Service 6: Scalable Applications -->
+          <div
+            class="border rounded-lg p-8 transition duration-300 transform hover:scale-105 hover:shadow-xl"
+            [ngClass]="{
+              'bg-white border-gray-200 hover:border-cyan-500': !isDarkMode,
+              'bg-gray-800 border-gray-700 hover:border-cyan-400': isDarkMode
+            }"
+          >
+            <div
+              class="h-14 w-14 rounded-lg flex items-center justify-center mb-6 animate-pulse-slow"
+              [ngClass]="{
+                'bg-cyan-600': !isDarkMode,
+                'bg-cyan-500': isDarkMode
+              }"
+            >
+              <svg
+                class="h-8 w-8 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-4 text-cyan-500">
+              {{
+                currentLanguage === "en"
+                  ? "Scalable Business Applications"
+                  : "მასშტაბირებადი ბიზნეს აპლიკაციები"
+              }}
+            </h3>
+            <ul
+              class="space-y-3"
+              [ngClass]="{
+                'text-gray-600': !isDarkMode,
+                'text-gray-300': isDarkMode
+              }"
+            >
+              <li class="flex items-start">
+                <svg
+                  class="h-5 w-5 text-cyan-500 mr-2 mt-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                {{
+                  currentLanguage === "en"
+                    ? "Solutions that grow with your business"
+                    : "გადაწყვეტილებები, რომლებიც იზრდება თქვენს ბიზნესთან ერთად"
+                }}
+              </li>
+              <li class="flex items-start">
+                <svg
+                  class="h-5 w-5 text-cyan-500 mr-2 mt-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                {{
+                  currentLanguage === "en"
+                    ? "High-performance under increased load"
+                    : "მაღალი წარმადობა დატვირთვის პირობებში"
+                }}
+              </li>
+              <li class="flex items-start">
+                <svg
+                  class="h-5 w-5 text-cyan-500 mr-2 mt-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                {{
+                  currentLanguage === "en"
+                    ? "Modular architecture design"
+                    : "მოდულური არქიტექტურის დიზაინი"
+                }}
+              </li>
+              <li class="flex items-start">
+                <svg
+                  class="h-5 w-5 text-cyan-500 mr-2 mt-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                {{
+                  currentLanguage === "en"
+                    ? "Efficient resource utilization"
+                    : "რესურსების ეფექტური გამოყენება"
+                }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About/Company Info Section -->
+    <section id="about" class="py-20">
+      <div class="container mx-auto px-4">
+        <!-- Section Title -->
+        <div
+          class="text-center mb-16"
+          data-aos="fade-up"
+          data-aos-duration="800"
+        >
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            {{
+              currentLanguage === "en" ? "About Our Company" : "ჩვენს შესახებ"
+            }}
+          </h2>
+          <div
+            class="w-20 h-1 bg-cyan-500 mx-auto transform transition-all duration-500 hover:w-40"
           ></div>
         </div>
+
+        <!-- Main Content -->
         <div class="flex flex-col md:flex-row items-center">
+          <!-- Left Column with Logo (formerly image) -->
           <div
             class="md:w-1/2 mb-10 md:mb-0 md:pr-10"
             data-aos="fade-right"
             data-aos-duration="1000"
           >
-            <div class="relative">
+            <div class="relative flex items-center justify-center h-64 md:h-80">
               <!-- Animated background shape -->
               <div
-                class="absolute -inset-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg opacity-20 blur-xl animate-pulse-slow"
+                class="absolute -inset-4 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-lg opacity-20 blur-xl animate-pulse-slow"
               ></div>
-              <img
-                src="/api/placeholder/600/400"
-                alt="Our Team"
-                class="relative rounded-lg shadow-2xl w-full transform transition-all duration-500 hover:scale-105"
-              />
+
+              <!-- Text-based logo -->
+              <div
+                class="relative text-center p-8 bg-gray-900/30 backdrop-blur-sm rounded-lg transform transition-all duration-500 hover:scale-105"
+              >
+                <div
+                  class="text-4xl md:text-5xl font-bold mb-3"
+                  [ngClass]="{
+                    'text-gray-800': !isDarkMode,
+                    'text-white': isDarkMode
+                  }"
+                >
+                  HEAL TECH SOLUTIONS
+                </div>
+                <div class="h-1 w-40 bg-cyan-500 mx-auto mb-3"></div>
+                <div
+                  class="text-xl md:text-2xl"
+                  [ngClass]="{
+                    'text-cyan-600': !isDarkMode,
+                    'text-cyan-400': isDarkMode
+                  }"
+                >
+                  Business Technology
+                </div>
+              </div>
             </div>
           </div>
+
+          <!-- Right Column with Text -->
           <div
             class="md:w-1/2"
             data-aos="fade-left"
             data-aos-duration="1000"
             data-aos-delay="200"
           >
-            <h3 class="text-2xl font-bold mb-4 text-[#60dee7]">
-              We're Web Solution Experts
+            <h3 class="text-2xl font-bold mb-4 text-cyan-500">
+              {{
+                currentLanguage === "en"
+                  ? "We're Business Technology Experts"
+                  : "ჩვენ ვართ ბიზნეს ტექნოლოგიების ექსპერტები"
+              }}
             </h3>
-            <p class="text-gray-300 mb-6">
-              Founded in 2015, our team of experienced developers specializes in
-              creating custom web solutions for businesses of all sizes. We
-              pride ourselves on delivering high-quality projects on time and
-              within budget.
+            <p
+              class="mb-6"
+              [ngClass]="{
+                'text-gray-600': !isDarkMode,
+                'text-gray-300': isDarkMode
+              }"
+            >
+              <span *ngIf="currentLanguage === 'en'">
+                Founded in 2025, our team of experienced developers specializes
+                in creating custom technology solutions for businesses of all
+                sizes. We pride ourselves on delivering high-quality projects on
+                time and within budget.
+              </span>
+              <span *ngIf="currentLanguage === 'ka'">
+                დაარსებული 2025 წელს, ჩვენი გამოცდილი დეველოპერების გუნდი
+                სპეციალიზირებულია ყველა ზომის ბიზნესისთვის მორგებული
+                ტექნოლოგიური გადაწყვეტილებების შექმნაში. ჩვენ ვამაყობთ, რომ
+                მაღალი ხარისხის პროექტებს დროულად და ბიუჯეტის ფარგლებში ვაწვდით.
+              </span>
             </p>
-            <p class="text-gray-300 mb-6">
-              Our technical expertise spans across .NET framework, various
-              database technologies, Angular development, and related front-end
-              technologies. We're committed to staying at the forefront of web
-              development to provide our clients with modern, secure, and
-              scalable solutions.
+            <p
+              class="mb-6"
+              [ngClass]="{
+                'text-gray-600': !isDarkMode,
+                'text-gray-300': isDarkMode
+              }"
+            >
+              <span *ngIf="currentLanguage === 'en'">
+                Our technical expertise spans across .NET framework, various
+                database technologies, Angular development, and related
+                front-end technologies. We're committed to staying at the
+                forefront of web development to provide our clients with modern,
+                secure, and scalable solutions.
+              </span>
+              <span *ngIf="currentLanguage === 'ka'">
+                ჩვენი ტექნიკური ექსპერტიზა მოიცავს .NET ფრეიმვორკს, სხვადასხვა
+                მონაცემთა ბაზის ტექნოლოგიებს, Angular-ის განვითარებას და
+                შესაბამის front-end ტექნოლოგიებს. ჩვენ ვალდებულებას ვიღებთ, რომ
+                ვიყოთ ვებ განვითარების წინა ხაზზე, რათა ჩვენს კლიენტებს
+                შევთავაზოთ თანამედროვე, უსაფრთხო და მასშტაბირებადი
+                გადაწყვეტილებები.
+              </span>
             </p>
+
+            <!-- Feature Grid -->
             <div class="grid grid-cols-2 gap-4 mt-8">
+              <!-- Quality Focused -->
               <div
                 class="flex items-center transform transition-all duration-300 hover:translate-x-2"
               >
                 <div
-                  class="h-12 w-12 rounded-full bg-blue-600 flex items-center justify-center mr-4 animate-pulse"
+                  class="h-12 w-12 rounded-full flex items-center justify-center mr-4 animate-pulse"
+                  [ngClass]="{
+                    'bg-cyan-600': !isDarkMode,
+                    'bg-cyan-500': isDarkMode
+                  }"
                 >
                   <svg
                     class="h-6 w-6 text-white"
@@ -293,14 +1199,26 @@
                   </svg>
                 </div>
                 <div>
-                  <h4 class="font-medium">Quality Focused</h4>
+                  <h4 class="font-medium">
+                    {{
+                      currentLanguage === "en"
+                        ? "Quality Focused"
+                        : "ხარისხზე ორიენტირებული"
+                    }}
+                  </h4>
                 </div>
               </div>
+
+              <!-- Always On Time -->
               <div
                 class="flex items-center transform transition-all duration-300 hover:translate-x-2"
               >
                 <div
-                  class="h-12 w-12 rounded-full bg-blue-600 flex items-center justify-center mr-4"
+                  class="h-12 w-12 rounded-full flex items-center justify-center mr-4"
+                  [ngClass]="{
+                    'bg-cyan-600': !isDarkMode,
+                    'bg-cyan-500': isDarkMode
+                  }"
                 >
                   <svg
                     class="h-6 w-6 text-white"
@@ -317,14 +1235,26 @@
                   </svg>
                 </div>
                 <div>
-                  <h4 class="font-medium">Always On Time</h4>
+                  <h4 class="font-medium">
+                    {{
+                      currentLanguage === "en"
+                        ? "Always On Time"
+                        : "ყოველთვის დროულად"
+                    }}
+                  </h4>
                 </div>
               </div>
+
+              <!-- Fast & Efficient -->
               <div
                 class="flex items-center transform transition-all duration-300 hover:translate-x-2"
               >
                 <div
-                  class="h-12 w-12 rounded-full bg-blue-600 flex items-center justify-center mr-4"
+                  class="h-12 w-12 rounded-full flex items-center justify-center mr-4"
+                  [ngClass]="{
+                    'bg-cyan-600': !isDarkMode,
+                    'bg-cyan-500': isDarkMode
+                  }"
                 >
                   <svg
                     class="h-6 w-6 text-white"
@@ -341,14 +1271,26 @@
                   </svg>
                 </div>
                 <div>
-                  <h4 class="font-medium">Fast & Efficient</h4>
+                  <h4 class="font-medium">
+                    {{
+                      currentLanguage === "en"
+                        ? "Fast & Efficient"
+                        : "სწრაფი და ეფექტური"
+                    }}
+                  </h4>
                 </div>
               </div>
+
+              <!-- Client Support -->
               <div
                 class="flex items-center transform transition-all duration-300 hover:translate-x-2"
               >
                 <div
-                  class="h-12 w-12 rounded-full bg-blue-600 flex items-center justify-center mr-4"
+                  class="h-12 w-12 rounded-full flex items-center justify-center mr-4"
+                  [ngClass]="{
+                    'bg-cyan-600': !isDarkMode,
+                    'bg-cyan-500': isDarkMode
+                  }"
                 >
                   <svg
                     class="h-6 w-6 text-white"
@@ -365,7 +1307,13 @@
                   </svg>
                 </div>
                 <div>
-                  <h4 class="font-medium">Client Support</h4>
+                  <h4 class="font-medium">
+                    {{
+                      currentLanguage === "en"
+                        ? "Client Support"
+                        : "კლიენტების მხარდაჭერა"
+                    }}
+                  </h4>
                 </div>
               </div>
             </div>
@@ -373,748 +1321,430 @@
         </div>
       </div>
     </section>
+    <!-- Skills Section -->
+    <section id="skills" class="py-20">
+      <div class="container mx-auto px-4">
+        <div
+          class="text-center mb-16"
+          data-aos="fade-up"
+          data-aos-duration="800"
+        >
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            {{
+              currentLanguage === "en" ? "Our Expertise" : "ჩვენი ექსპერტიზა"
+            }}
+          </h2>
+          <div
+            class="w-20 h-1 bg-cyan-500 mx-auto transform transition-all duration-500 hover:w-40"
+          ></div>
+          <p
+            class="text-lg mt-6 max-w-3xl mx-auto"
+            [ngClass]="{
+              'text-gray-600': !isDarkMode,
+              'text-gray-300': isDarkMode
+            }"
+          >
+            {{
+              currentLanguage === "en"
+                ? "Our team brings deep technical knowledge and experience to every project."
+                : "ჩვენი გუნდი ყველა პროექტში სიღრმისეულ ტექნიკურ ცოდნასა და გამოცდილებას იყენებს."
+            }}
+          </p>
+        </div>
 
-    <div class="w-full mx-auto container">
-      <!-- Header -->
-      <div class="mb-12">
-        <h1 class="text-5xl font-bold mb-4">Pricing</h1>
-        <p class="text-xl mb-8">Choose the plan that works for you</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+          <!-- Skill 1 -->
+          <div
+            class="flex flex-col items-center p-6 border rounded-lg transform transition-all duration-300 hover:scale-105"
+            [ngClass]="{
+              'bg-white border-gray-200 hover:border-cyan-500': !isDarkMode,
+              'bg-gray-800 border-gray-700 hover:border-cyan-400': isDarkMode
+            }"
+          >
+            <div
+              class="h-16 w-16 rounded-full flex items-center justify-center mb-4 animate-pulse-slow bg-gradient-to-r"
+              [ngClass]="{
+                'from-cyan-600 to-blue-400': !isDarkMode,
+                'from-cyan-500 to-blue-400': isDarkMode
+              }"
+            >
+              <span class="text-2xl font-bold text-white">.NET</span>
+            </div>
+            <div class="text-center">
+              <h3 class="text-lg font-bold mb-2 text-cyan-500">.NET Core</h3>
+              <p
+                class="text-sm"
+                [ngClass]="{
+                  'text-gray-600': !isDarkMode,
+                  'text-gray-300': isDarkMode
+                }"
+              >
+                ASP.NET, MVC, Web API, Entity Framework
+              </p>
+            </div>
+          </div>
+
+          <!-- Skill 2 -->
+          <div
+            class="flex flex-col items-center p-6 border rounded-lg transform transition-all duration-300 hover:scale-105"
+            [ngClass]="{
+              'bg-white border-gray-200 hover:border-cyan-500': !isDarkMode,
+              'bg-gray-800 border-gray-700 hover:border-cyan-400': isDarkMode
+            }"
+          >
+            <div
+              class="h-16 w-16 rounded-full flex items-center justify-center mb-4 animate-pulse-slow bg-gradient-to-r"
+              [ngClass]="{
+                'from-cyan-600 to-purple-500': !isDarkMode,
+                'from-cyan-500 to-purple-500': isDarkMode
+              }"
+            >
+              <span class="text-2xl font-bold text-white">SQL</span>
+            </div>
+            <div class="text-center">
+              <h3 class="text-lg font-bold mb-2 text-cyan-500">Databases</h3>
+              <p
+                class="text-sm"
+                [ngClass]="{
+                  'text-gray-600': !isDarkMode,
+                  'text-gray-300': isDarkMode
+                }"
+              >
+                SQL Server, PostgreSQL, MongoDB, Redis
+              </p>
+            </div>
+          </div>
+
+          <!-- Skill 3 -->
+          <div
+            class="flex flex-col items-center p-6 border rounded-lg transform transition-all duration-300 hover:scale-105"
+            [ngClass]="{
+              'bg-white border-gray-200 hover:border-cyan-500': !isDarkMode,
+              'bg-gray-800 border-gray-700 hover:border-cyan-400': isDarkMode
+            }"
+          >
+            <div
+              class="h-16 w-16 rounded-full flex items-center justify-center mb-4 animate-pulse-slow bg-gradient-to-r from-red-500 to-red-300"
+            >
+              <span class="text-2xl font-bold text-white">Ng</span>
+            </div>
+            <div class="text-center">
+              <h3 class="text-lg font-bold mb-2 text-cyan-500">Angular</h3>
+              <p
+                class="text-sm"
+                [ngClass]="{
+                  'text-gray-600': !isDarkMode,
+                  'text-gray-300': isDarkMode
+                }"
+              >
+                Angular 19, RxJS, NgRx, Material
+              </p>
+            </div>
+          </div>
+
+          <!-- Skill 4 -->
+          <div
+            class="flex flex-col items-center p-6 border rounded-lg transform transition-all duration-300 hover:scale-105"
+            [ngClass]="{
+              'bg-white border-gray-200 hover:border-cyan-500': !isDarkMode,
+              'bg-gray-800 border-gray-700 hover:border-cyan-400': isDarkMode
+            }"
+          >
+            <div
+              class="h-16 w-16 rounded-full flex items-center justify-center mb-4 animate-pulse-slow bg-gradient-to-r from-blue-400 to-green-400"
+            >
+              <span class="text-2xl font-bold text-white">UI</span>
+            </div>
+            <div class="text-center">
+              <h3 class="text-lg font-bold mb-2 text-cyan-500">Front-End</h3>
+              <p
+                class="text-sm"
+                [ngClass]="{
+                  'text-gray-600': !isDarkMode,
+                  'text-gray-300': isDarkMode
+                }"
+              >
+                HTML5, CSS3, Tailwind, JavaScript
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <!-- Pricing Cards -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Starter Plan -->
-        <div class="pricing-card starter-card p-8 flex flex-col h-full">
-          <h2 class="text-2xl font-bold mb-4">Starter</h2>
-          <div class="mb-6">
-            <span class="text-4xl font-bold">$1,500+</span>
-            <span class="text-gray-500"> per project</span>
-          </div>
-
-          <ul class="space-y-4 mb-8">
-            <li class="checkmark-green flex items-start">
-              Basic website development
-            </li>
-            <li class="checkmark-green flex items-start">Responsive design</li>
-            <li class="checkmark-green flex items-start">SEO basics</li>
-            <li class="checkmark-green flex items-start">30-day support</li>
-            <li class="checkmark-green flex items-start">
-              Cloud deployment (basic)
-            </li>
-            <li class="cross-red flex items-start text-gray-400">
-              Internal systems development
-            </li>
-            <li class="cross-red flex items-start text-gray-400">
-              Database management
-            </li>
-            <li class="cross-red flex items-start text-gray-400">
-              CI/CD implementation
-            </li>
-            <li class="cross-red flex items-start text-gray-400">
-              Long-term support
-            </li>
-          </ul>
-
-          <div class="mt-auto">
-            <button
-              class="w-full starter-button font-bold py-4 px-6 rounded-lg text-center"
-            >
-              Get Started
-            </button>
-          </div>
+    <!-- Contact Section -->
+    <section id="contact" class="py-20">
+      <div class="container mx-auto px-4">
+        <div
+          class="text-center mb-16"
+          data-aos="fade-up"
+          data-aos-duration="800"
+        >
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            {{ currentLanguage === "en" ? "Contact Us" : "დაგვიკავშირდით" }}
+          </h2>
+          <div
+            class="w-20 h-1 bg-cyan-500 mx-auto transform transition-all duration-500 hover:w-40"
+          ></div>
+          <p
+            class="text-lg mt-6 max-w-3xl mx-auto"
+            [ngClass]="{
+              'text-gray-600': !isDarkMode,
+              'text-gray-300': isDarkMode
+            }"
+          >
+            {{
+              currentLanguage === "en"
+                ? "Get in touch with our team to discuss your business technology needs."
+                : "დაუკავშირდით ჩვენს გუნდს თქვენი ბიზნესის ტექნოლოგიური საჭიროებების განსახილველად."
+            }}
+          </p>
         </div>
 
-        <!-- Professional Plan -->
-        <div class="pricing-card professional-card p-8 flex flex-col h-full">
-          <h2 class="text-2xl font-bold mb-4">Professional</h2>
-          <div class="mb-6">
-            <span class="text-4xl font-bold">$5,000+</span>
-            <span class="text-gray-500"> per project</span>
-          </div>
-
-          <ul class="space-y-4 mb-8">
-            <li class="checkmark-green flex items-start">
-              Advanced website development
-            </li>
-            <li class="checkmark-green flex items-start">Responsive design</li>
-            <li class="checkmark-green flex items-start">SEO optimization</li>
-            <li class="checkmark-green flex items-start">90-day support</li>
-            <li class="checkmark-green flex items-start">
-              Cloud deployment (advanced)
-            </li>
-            <li class="checkmark-green flex items-start">
-              Basic internal systems
-            </li>
-            <li class="checkmark-green flex items-start">
-              Database implementation
-            </li>
-            <li class="checkmark-green flex items-start">Basic CI/CD setup</li>
-            <li class="cross-red flex items-start text-gray-400">
-              Long-term support options
-            </li>
-          </ul>
-
-          <div class="mt-auto">
-            <button
-              class="w-full professional-button font-bold py-4 px-6 rounded-lg text-center"
-            >
-              Choose Professional
-            </button>
-          </div>
-        </div>
-
-        <!-- Enterprise Plan -->
-        <div class="pricing-card enterprise-card p-8 flex flex-col h-full">
-          <h2 class="text-2xl font-bold mb-4">Enterprise</h2>
-          <div class="mb-6">
-            <span class="text-4xl font-bold">$15,000+</span>
-            <span class="text-gray-500"> per project</span>
-          </div>
-
-          <ul class="space-y-4 mb-8">
-            <li class="checkmark-green flex items-start">
-              Enterprise-level development
-            </li>
-            <li class="checkmark-green flex items-start">
-              Scalable architecture
-            </li>
-            <li class="checkmark-green flex items-start">Full SEO strategy</li>
-            <li class="checkmark-green flex items-start">
-              6-month support included
-            </li>
-            <li class="checkmark-green flex items-start">
-              Advanced cloud architecture
-            </li>
-            <li class="checkmark-green flex items-start">
-              Complex internal systems
-            </li>
-            <li class="checkmark-green flex items-start">
-              Complete database management
-            </li>
-            <li class="checkmark-green flex items-start">
-              Full CI/CD implementation
-            </li>
-            <li class="checkmark-green flex items-start">
-              Extended support plans
-            </li>
-          </ul>
-
-          <div class="mt-auto">
-            <button
-              class="w-full enterprise-button font-bold py-4 px-6 rounded-lg text-center"
-            >
-              Contact Sales
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Services Section -->
-      <section id="services" class="py-20 bg-black">
-        <div class="container mx-auto px-4 scroll-fade">
-          <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Services</h2>
-            <div
-              class="w-20 h-1 bg-[#60dee7] mx-auto transform transition-all duration-500 hover:w-40"
-            ></div>
-            <p class="text-gray-300 mt-6 max-w-3xl mx-auto">
-              Comprehensive technical solutions for businesses of all sizes.
-            </p>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            <!-- Custom Website Development -->
-            <div
-              class="bg-black scroll-fade border border-gray-800 rounded-lg p-8 transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:border-[#60dee7]"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              <div
-                class="h-14 w-14 bg-blue-600 rounded-lg flex items-center justify-center mb-6 animate-pulse-slow"
-              >
-                <svg
-                  class="h-8 w-8 text-white"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                  />
-                </svg>
-              </div>
-              <h3 class="text-xl font-bold mb-4 text-[#60dee7]">
-                Custom Website Development
-              </h3>
-              <ul class="space-y-3 text-gray-300">
-                <li class="flex items-start">
-                  <svg
-                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  Websites of all types and complexity levels
-                </li>
-                <li class="flex items-start">
-                  <svg
-                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  Responsive design for all devices
-                </li>
-                <li class="flex items-start">
-                  <svg
-                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  Modern frameworks and technologies
-                </li>
-                <li class="flex items-start">
-                  <svg
-                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  SEO optimization
-                </li>
-              </ul>
-            </div>
-
-            <!-- Internal Systems Development -->
-            <div
-              class="bg-black scroll-fade border border-gray-800 rounded-lg p-8 transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:border-[#60dee7]"
-              data-aos="fade-up"
-              data-aos-delay="200"
-            >
-              <div
-                class="h-14 w-14 bg-blue-600 rounded-lg flex items-center justify-center mb-6 animate-pulse-slow"
-              >
-                <svg
-                  class="h-8 w-8 text-white"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                  />
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                </svg>
-              </div>
-              <h3 class="text-xl font-bold mb-4 text-[#60dee7]">
-                Internal Systems Development
-              </h3>
-              <ul class="space-y-3 text-gray-300">
-                <li class="flex items-start">
-                  <svg
-                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  Custom business applications
-                </li>
-                <li class="flex items-start">
-                  <svg
-                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  Workflow automation solutions
-                </li>
-                <li class="flex items-start">
-                  <svg
-                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  Process optimization systems
-                </li>
-                <li class="flex items-start">
-                  <svg
-                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  Enterprise resource planning
-                </li>
-              </ul>
-            </div>
-
-            <!-- Cloud Deployment -->
-            <div
-              class="bg-black border border-gray-800 rounded-lg p-8 transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:border-[#60dee7]"
-              data-aos="fade-up"
-              data-aos-delay="300"
-            >
-              <div
-                class="h-14 w-14 bg-blue-600 rounded-lg flex items-center justify-center mb-6 animate-pulse-slow"
-              >
-                <svg
-                  class="h-8 w-8 text-white"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"
-                  />
-                </svg>
-              </div>
-              <h3 class="text-xl font-bold mb-4 text-[#60dee7]">
-                Cloud Deployment
-              </h3>
-              <ul class="space-y-3 text-gray-300">
-                <li class="flex items-start">
-                  <svg
-                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  AWS and Azure infrastructure setup
-                </li>
-                <li class="flex items-start">
-                  <svg
-                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  Migration to cloud platforms
-                </li>
-                <li class="flex items-start">
-                  <svg
-                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  Infrastructure optimization
-                </li>
-                <li class="flex items-start">
-                  <svg
-                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  Secure cloud architecture
-                </li>
-              </ul>
-            </div>
-
-            <!-- Database Management -->
-            <div
-              class="bg-black border border-gray-800 rounded-lg p-8 transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:border-[#60dee7]"
-              data-aos="fade-up"
-              data-aos-delay="400"
-            >
-              <div
-                class="h-14 w-14 bg-blue-600 rounded-lg flex items-center justify-center mb-6 animate-pulse-slow"
-              >
-                <svg
-                  class="h-8 w-8 text-white"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"
-                  />
-                </svg>
-              </div>
-              <h3 class="text-xl font-bold mb-4 text-[#60dee7]">
-                Database Management
-              </h3>
-              <ul class="space-y-3 text-gray-300">
-                <li class="flex items-start">
-                  <svg
-                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  Database design and implementation
-                </li>
-                <li class="flex items-start">
-                  <svg
-                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  Performance optimization
-                </li>
-                <li class="flex items-start">
-                  <svg
-                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  Data security and protection
-                </li>
-                <li class="flex items-start">
-                  <svg
-                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  Ongoing database support
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-8">
-            <!-- CI/CD Implementation -->
-            <div
-              class="bg-black border border-gray-800 rounded-lg p-8 transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:border-[#60dee7]"
-              data-aos="fade-up"
-              data-aos-delay="500"
-            >
-              <div
-                class="h-14 w-14 bg-blue-600 rounded-lg flex items-center justify-center mb-6 animate-pulse-slow"
-              >
-                <svg
-                  class="h-8 w-8 text-white"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                  />
-                </svg>
-              </div>
-              <h3 class="text-xl font-bold mb-4 text-[#60dee7]">
-                CI/CD Implementation
-              </h3>
-              <ul class="space-y-3 text-gray-300">
-                <li class="flex items-start">
-                  <svg
-                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  Automated testing and deployment
-                </li>
-                <li class="flex items-start">
-                  <svg
-                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  Development workflow streamlining
-                </li>
-                <li class="flex items-start">
-                  <svg
-                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  Code quality assurance
-                </li>
-                <li class="flex items-start">
-                  <svg
-                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  Release management
-                </li>
-              </ul>
-            </div>
-
-            <!-- Scalable Applications -->
-            <div
-              class="bg-black border border-gray-800 rounded-lg p-8 transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:border-[#60dee7]"
-              data-aos="fade-up"
-              data-aos-delay="600"
-            >
-              <div
-                class="h-14 w-14 bg-blue-600 rounded-lg flex items-center justify-center mb-6 animate-pulse-slow"
-              >
-                <svg
-                  class="h-8 w-8 text-white"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                  />
-                </svg>
-              </div>
-              <h3 class="text-xl font-bold mb-4 text-[#60dee7]">
-                Scalable Applications
-              </h3>
-              <ul class="space-y-3 text-gray-300">
-                <li class="flex items-start">
-                  <svg
-                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  Solutions that grow with your business
-                </li>
-                <li class="flex items-start">
-                  <svg
-                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  High-performance under increased load
-                </li>
-                <li class="flex items-start">
-                  <svg
-                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  Modular architecture design
-                </li>
-                <li class="flex items-start">
-                  <svg
-                    class="h-5 w-5 text-[#60dee7] mr-2 mt-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  Efficient resource utilization
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- Engagement Options section -->
-          <div class="mt-16">
-            <h3
-              class="text-2xl font-bold mb-6 text-[#60dee7] text-center"
-              data-aos="fade-up"
-            >
-              Engagement Options
+        <div class="flex flex-col md:flex-row gap-10">
+          <!-- Contact Form -->
+          <div
+            class="md:w-1/2 border rounded-lg p-8"
+            [ngClass]="{
+              'bg-white border-gray-200': !isDarkMode,
+              'bg-gray-800 border-gray-700': isDarkMode
+            }"
+          >
+            <h3 class="text-2xl font-bold mb-6 text-cyan-500">
+              {{
+                currentLanguage === "en"
+                  ? "Send us a message"
+                  : "გამოგვიგზავნეთ შეტყობინება"
+              }}
             </h3>
-            <div
-              class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8"
-            >
+            <form [formGroup]="contactForm" (ngSubmit)="submit()">
+              <!-- Name field -->
+              <div class="mb-5">
+                <label
+                  [ngClass]="{
+                    'text-gray-700': !isDarkMode,
+                    'text-gray-300': isDarkMode
+                  }"
+                  class="block mb-2 font-medium"
+                >
+                  {{ currentLanguage === "en" ? "Your Name" : "თქვენი სახელი" }}
+                </label>
+                <input
+                  type="text"
+                  formControlName="name"
+                  class="w-full p-3 border rounded-lg transition duration-300"
+                  [ngClass]="{
+                    'bg-white border-gray-300 focus:border-cyan-500 focus:ring-cyan-500':
+                      !isDarkMode,
+                    'bg-gray-700 border-gray-600 text-white focus:border-cyan-400 focus:ring-cyan-400':
+                      isDarkMode,
+                    'border-red-500':
+                      contactForm.get('name')?.invalid &&
+                      contactForm.get('name')?.touched
+                  }"
+                />
+                <div
+                  *ngIf="
+                    contactForm.get('name')?.invalid &&
+                    contactForm.get('name')?.touched
+                  "
+                  class="mt-1 text-sm text-red-500"
+                >
+                  {{
+                    currentLanguage === "en"
+                      ? "Name is required"
+                      : "სახელი აუცილებელია"
+                  }}
+                </div>
+              </div>
+
+              <!-- Email field -->
+              <div class="mb-5">
+                <label
+                  [ngClass]="{
+                    'text-gray-700': !isDarkMode,
+                    'text-gray-300': isDarkMode
+                  }"
+                  class="block mb-2 font-medium"
+                >
+                  {{
+                    currentLanguage === "en" ? "Your Email" : "თქვენი ელფოსტა"
+                  }}
+                </label>
+                <input
+                  type="email"
+                  formControlName="email"
+                  class="w-full p-3 border rounded-lg transition duration-300"
+                  [ngClass]="{
+                    'bg-white border-gray-300 focus:border-cyan-500 focus:ring-cyan-500':
+                      !isDarkMode,
+                    'bg-gray-700 border-gray-600 text-white focus:border-cyan-400 focus:ring-cyan-400':
+                      isDarkMode,
+                    'border-red-500':
+                      contactForm.get('email')?.invalid &&
+                      contactForm.get('email')?.touched
+                  }"
+                />
+                <div
+                  *ngIf="
+                    contactForm.get('email')?.invalid &&
+                    contactForm.get('email')?.touched
+                  "
+                  class="mt-1 text-sm text-red-500"
+                >
+                  {{
+                    currentLanguage === "en"
+                      ? "Valid email is required"
+                      : "სწორი ელფოსტა აუცილებელია"
+                  }}
+                </div>
+              </div>
+
+              <!-- Subject field -->
+              <div class="mb-5">
+                <label
+                  [ngClass]="{
+                    'text-gray-700': !isDarkMode,
+                    'text-gray-300': isDarkMode
+                  }"
+                  class="block mb-2 font-medium"
+                >
+                  {{ currentLanguage === "en" ? "Subject" : "თემა" }}
+                </label>
+                <input
+                  type="text"
+                  formControlName="subject"
+                  class="w-full p-3 border rounded-lg transition duration-300"
+                  [ngClass]="{
+                    'bg-white border-gray-300 focus:border-cyan-500 focus:ring-cyan-500':
+                      !isDarkMode,
+                    'bg-gray-700 border-gray-600 text-white focus:border-cyan-400 focus:ring-cyan-400':
+                      isDarkMode,
+                    'border-red-500':
+                      contactForm.get('subject')?.invalid &&
+                      contactForm.get('subject')?.touched
+                  }"
+                />
+                <div
+                  *ngIf="
+                    contactForm.get('subject')?.invalid &&
+                    contactForm.get('subject')?.touched
+                  "
+                  class="mt-1 text-sm text-red-500"
+                >
+                  {{
+                    currentLanguage === "en"
+                      ? "Subject is required"
+                      : "თემა აუცილებელია"
+                  }}
+                </div>
+              </div>
+
+              <!-- Message field -->
+              <div class="mb-5">
+                <label
+                  [ngClass]="{
+                    'text-gray-700': !isDarkMode,
+                    'text-gray-300': isDarkMode
+                  }"
+                  class="block mb-2 font-medium"
+                >
+                  {{ currentLanguage === "en" ? "Message" : "შეტყობინება" }}
+                </label>
+                <textarea
+                  rows="4"
+                  formControlName="message"
+                  class="w-full p-3 border rounded-lg transition duration-300"
+                  [ngClass]="{
+                    'bg-white border-gray-300 focus:border-cyan-500 focus:ring-cyan-500':
+                      !isDarkMode,
+                    'bg-gray-700 border-gray-600 text-white focus:border-cyan-400 focus:ring-cyan-400':
+                      isDarkMode,
+                    'border-red-500':
+                      contactForm.get('message')?.invalid &&
+                      contactForm.get('message')?.touched
+                  }"
+                ></textarea>
+                <div
+                  *ngIf="
+                    contactForm.get('message')?.invalid &&
+                    contactForm.get('message')?.touched
+                  "
+                  class="mt-1 text-sm text-red-500"
+                >
+                  {{
+                    currentLanguage === "en"
+                      ? "Message is required (min 10 characters)"
+                      : "შეტყობინება აუცილებელია (მინიმუმ 10 სიმბოლო)"
+                  }}
+                </div>
+              </div>
+
+              <!-- Status messages -->
               <div
-                class="bg-black border border-gray-800 rounded-lg p-6 text-center transform transition-all duration-300 hover:scale-105 hover:border-[#60dee7]"
-                data-aos="fade-up"
-                data-aos-delay="100"
+                *ngIf="submitSuccess"
+                class="mb-4 p-3 bg-green-100 text-green-800 rounded-lg"
               >
-                <div class="mx-auto mb-4">
+                {{
+                  currentLanguage === "en"
+                    ? "Message sent successfully!"
+                    : "შეტყობინება წარმატებით გაიგზავნა!"
+                }}
+              </div>
+
+              <div
+                *ngIf="submitError"
+                class="mb-4 p-3 bg-red-100 text-red-800 rounded-lg"
+              >
+                {{
+                  currentLanguage === "en"
+                    ? "Failed to send message. Please try again later."
+                    : "შეტყობინების გაგზავნა ვერ მოხერხდა. გთხოვთ, სცადოთ მოგვიანებით."
+                }}
+              </div>
+
+              <!-- Submit button -->
+              <button
+                type="submit"
+                [disabled]="isSubmitting"
+                style="cursor: pointer"
+                class="w-full transition duration-300 py-3 px-6 rounded-lg"
+                [ngClass]="{
+                  'bg-cyan-600 hover:bg-cyan-700 text-white': !isDarkMode,
+                  'bg-cyan-500 hover:bg-cyan-600 text-gray-900': isDarkMode,
+                  'opacity-70 cursor-not-allowed': isSubmitting
+                }"
+              >
+                <span *ngIf="!isSubmitting">
+                  {{ currentLanguage === "en" ? "Send Message" : "გაგზავნა" }}
+                </span>
+                <span *ngIf="isSubmitting">
+                  {{ currentLanguage === "en" ? "Sending..." : "იგზავნება..." }}
+                </span>
+              </button>
+            </form>
+          </div>
+
+          <!-- Contact Information -->
+          <div class="md:w-1/2">
+            <h3 class="text-2xl font-bold mb-6 text-cyan-500">
+              {{
+                currentLanguage === "en"
+                  ? "Our Contact Information"
+                  : "ჩვენი საკონტაქტო ინფორმაცია"
+              }}
+            </h3>
+            <div class="space-y-6">
+              <!-- <div class="flex items-start">
+                <div
+                  class="h-12 w-12 rounded-full flex items-center justify-center mr-4 animate-pulse-slow"
+                  [ngClass]="{
+                    'bg-cyan-600': !isDarkMode,
+                    'bg-cyan-500': isDarkMode
+                  }"
+                >
                   <svg
-                    class="h-10 w-10 text-[#60dee7] mx-auto"
+                    class="h-6 w-6 text-white"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -1123,23 +1753,119 @@
                       stroke-linecap="round"
                       stroke-linejoin="round"
                       stroke-width="2"
-                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                    />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                     />
                   </svg>
                 </div>
-                <h4 class="text-lg font-medium mb-3 text-gray-100">
-                  One-time project development
-                </h4>
+                <div>
+                  <h4 class="font-medium text-lg mb-1">
+                    {{ currentLanguage === "en" ? "Address" : "მისამართი" }}
+                  </h4>
+                  <p
+                    [ngClass]="{
+                      'text-gray-600': !isDarkMode,
+                      'text-gray-300': isDarkMode
+                    }"
+                  >
+                    {{
+                      currentLanguage === "en"
+                        ? "123 Business Street, Tbilisi, Georgia"
+                        : "123 ბიზნეს ქუჩა, თბილისი, საქართველო"
+                    }}
+                  </p>
+                </div>
+              </div> -->
+
+              <div class="flex items-start">
+                <div
+                  class="h-12 w-12 rounded-full flex items-center justify-center mr-4 animate-pulse-slow"
+                  [ngClass]="{
+                    'bg-cyan-600': !isDarkMode,
+                    'bg-cyan-500': isDarkMode
+                  }"
+                >
+                  <svg
+                    class="h-6 w-6 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-medium text-lg mb-1">
+                    {{ currentLanguage === "en" ? "Phone" : "ტელეფონი" }}
+                  </h4>
+                  <p
+                    [ngClass]="{
+                      'text-gray-600': !isDarkMode,
+                      'text-gray-300': isDarkMode
+                    }"
+                  >
+                    +995 599 149 284
+                  </p>
+                </div>
               </div>
 
-              <div
-                class="bg-black border border-gray-800 rounded-lg p-6 text-center transform transition-all duration-300 hover:scale-105 hover:border-[#60dee7]"
-                data-aos="fade-up"
-                data-aos-delay="200"
-              >
-                <div class="mx-auto mb-4">
+              <div class="flex items-start">
+                <div
+                  class="h-12 w-12 rounded-full flex items-center justify-center mr-4 animate-pulse-slow"
+                  [ngClass]="{
+                    'bg-cyan-600': !isDarkMode,
+                    'bg-cyan-500': isDarkMode
+                  }"
+                >
                   <svg
-                    class="h-10 w-10 text-[#60dee7] mx-auto"
+                    class="h-6 w-6 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-medium text-lg mb-1">
+                    {{ currentLanguage === "en" ? "Email" : "ელფოსტა" }}
+                  </h4>
+                  <p
+                    [ngClass]="{
+                      'text-gray-600': !isDarkMode,
+                      'text-gray-300': isDarkMode
+                    }"
+                  >
+                    {{ "info@healtechsolutions.com" }}
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start">
+                <div
+                  class="h-12 w-12 rounded-full flex items-center justify-center mr-4 animate-pulse-slow"
+                  [ngClass]="{
+                    'bg-cyan-600': !isDarkMode,
+                    'bg-cyan-500': isDarkMode
+                  }"
+                >
+                  <svg
+                    class="h-6 w-6 text-white"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -1152,173 +1878,164 @@
                     />
                   </svg>
                 </div>
-                <h4 class="text-lg font-medium mb-3 text-gray-100">
-                  Long-term maintenance and support
-                </h4>
-              </div>
-
-              <div
-                class="bg-black border border-gray-800 rounded-lg p-6 text-center transform transition-all duration-300 hover:scale-105 hover:border-[#60dee7]"
-                data-aos="fade-up"
-                data-aos-delay="300"
-              >
-                <div class="mx-auto mb-4">
-                  <svg
-                    class="h-10 w-10 text-[#60dee7] mx-auto"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+                <div>
+                  <h4 class="font-medium text-lg mb-1">
+                    {{
+                      currentLanguage === "en"
+                        ? "Working Hours"
+                        : "სამუშაო საათები"
+                    }}
+                  </h4>
+                  <p
+                    [ngClass]="{
+                      'text-gray-600': !isDarkMode,
+                      'text-gray-300': isDarkMode
+                    }"
                   >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
-                    />
-                  </svg>
+                    {{
+                      currentLanguage === "en"
+                        ? "Monday - Friday: 9AM - 6PM"
+                        : "ორშაბათი - პარასკევი: 9:00 - 18:00"
+                    }}
+                  </p>
                 </div>
-                <h4 class="text-lg font-medium mb-3 text-gray-100">
-                  Technical consultations
-                </h4>
               </div>
 
-              <div
-                class="bg-black border border-gray-800 rounded-lg p-6 text-center transform transition-all duration-300 hover:scale-105 hover:border-[#60dee7]"
-                data-aos="fade-up"
-                data-aos-delay="400"
-              >
-                <div class="mx-auto mb-4">
-                  <svg
-                    class="h-10 w-10 text-[#60dee7] mx-auto"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+              <!-- Social Media Links -->
+              <!-- <div class="mt-8">
+                <h4 class="font-medium text-lg mb-4">
+                  {{ currentLanguage === "en" ? "Follow Us" : "გამოგვყევით" }}
+                </h4>
+                <div class="flex space-x-4">
+                  <a
+                    href="#"
+                    class="h-10 w-10 rounded-full flex items-center justify-center transition duration-300"
+                    [ngClass]="{
+                      'bg-gray-200 hover:bg-cyan-500 hover:text-white':
+                        !isDarkMode,
+                      'bg-gray-700 hover:bg-cyan-500 hover:text-white':
+                        isDarkMode
+                    }"
                   >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                    />
-                  </svg>
+                    <svg
+                      class="h-5 w-5"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"
+                      />
+                    </svg>
+                  </a>
+                  <a
+                    href="#"
+                    class="h-10 w-10 rounded-full flex items-center justify-center transition duration-300"
+                    [ngClass]="{
+                      'bg-gray-200 hover:bg-cyan-500 hover:text-white':
+                        !isDarkMode,
+                      'bg-gray-700 hover:bg-cyan-500 hover:text-white':
+                        isDarkMode
+                    }"
+                  >
+                    <svg
+                      class="h-5 w-5"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+                      />
+                    </svg>
+                  </a>
+                  <a
+                    href="#"
+                    class="h-10 w-10 rounded-full flex items-center justify-center transition duration-300"
+                    [ngClass]="{
+                      'bg-gray-200 hover:bg-cyan-500 hover:text-white':
+                        !isDarkMode,
+                      'bg-gray-700 hover:bg-cyan-500 hover:text-white':
+                        isDarkMode
+                    }"
+                  >
+                    <svg
+                      class="h-5 w-5"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M22.46,6C21.69,6.35 20.86,6.58 20,6.69C20.88,6.16 21.56,5.32 21.88,4.31C21.05,4.81 20.13,5.16 19.16,5.36C18.37,4.5 17.26,4 16,4C13.65,4 11.73,5.92 11.73,8.29C11.73,8.63 11.77,8.96 11.84,9.27C8.28,9.09 5.11,7.38 3,4.79C2.63,5.42 2.42,6.16 2.42,6.94C2.42,8.43 3.17,9.75 4.33,10.5C3.62,10.5 2.96,10.3 2.38,10C2.38,10 2.38,10 2.38,10.03C2.38,12.11 3.86,13.85 5.82,14.24C5.46,14.34 5.08,14.39 4.69,14.39C4.42,14.39 4.15,14.36 3.89,14.31C4.43,16 6,17.26 7.89,17.29C6.43,18.45 4.58,19.13 2.56,19.13C2.22,19.13 1.88,19.11 1.54,19.07C3.44,20.29 5.7,21 8.12,21C16,21 20.33,14.46 20.33,8.79C20.33,8.6 20.33,8.42 20.32,8.23C21.16,7.63 21.88,6.87 22.46,6Z"
+                      />
+                    </svg>
+                  </a>
+                  <a
+                    href="#"
+                    class="h-10 w-10 rounded-full flex items-center justify-center transition duration-300"
+                    [ngClass]="{
+                      'bg-gray-200 hover:bg-cyan-500 hover:text-white':
+                        !isDarkMode,
+                      'bg-gray-700 hover:bg-cyan-500 hover:text-white':
+                        isDarkMode
+                    }"
+                  >
+                    <svg
+                      class="h-5 w-5"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"
+                      />
+                    </svg>
+                  </a>
                 </div>
-                <h4 class="text-lg font-medium mb-3 text-gray-100">
-                  System audits and optimizations
-                </h4>
-              </div>
+              </div> -->
             </div>
           </div>
-        </div>
-      </section>
-
-      <!-- Skills Section -->
-      <section id="skills" class="py-20">
-        <div class="container mx-auto px-4">
-          <div
-            class="text-center mb-16"
-            data-aos="fade-up"
-            data-aos-duration="800"
-          >
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Expertise</h2>
-            <div
-              class="w-20 h-1 bg-[#60dee7] mx-auto transform transition-all duration-500 hover:w-40"
-            ></div>
-            <p class="text-gray-300 mt-6 max-w-3xl mx-auto">
-              Our team brings deep technical knowledge and experience to every
-              project.
-            </p>
-          </div>
-
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-            <!-- Skill 1 -->
-            <div
-              class="flex flex-col items-center p-6 bg-black border border-gray-800 rounded-lg transform transition-all duration-300 hover:scale-105 hover:border-[#60dee7]"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              <div
-                class="h-16 w-16 rounded-full flex items-center justify-center mb-4 bg-gradient-to-r from-blue-600 to-blue-400 animate-pulse-slow"
-              >
-                <span class="text-2xl font-bold">.NET</span>
-              </div>
-              <div class="text-center">
-                <h3 class="text-lg font-bold mb-2 text-[#60dee7]">.NET Core</h3>
-                <p class="text-gray-400 text-sm">
-                  ASP.NET, MVC, Web API, Entity Framework
-                </p>
-              </div>
-            </div>
-
-            <!-- Skill 2 -->
-            <div
-              class="flex flex-col items-center p-6 bg-black border border-gray-800 rounded-lg transform transition-all duration-300 hover:scale-105 hover:border-[#60dee7]"
-              data-aos="fade-up"
-              data-aos-delay="200"
-            >
-              <div
-                class="h-16 w-16 rounded-full flex items-center justify-center mb-4 bg-gradient-to-r from-blue-600 to-purple-500 animate-pulse-slow"
-              >
-                <span class="text-2xl font-bold">SQL</span>
-              </div>
-              <div class="text-center">
-                <h3 class="text-lg font-bold mb-2 text-[#60dee7]">Databases</h3>
-                <p class="text-gray-400 text-sm">
-                  SQL Server, PostgreSQL, MongoDB, Redis
-                </p>
-              </div>
-            </div>
-
-            <!-- Skill 3 -->
-            <div
-              class="flex flex-col items-center p-6 bg-black border border-gray-800 rounded-lg transform transition-all duration-300 hover:scale-105 hover:border-[#60dee7]"
-              data-aos="fade-up"
-              data-aos-delay="300"
-            >
-              <div
-                class="h-16 w-16 rounded-full flex items-center justify-center mb-4 bg-gradient-to-r from-red-500 to-red-300 animate-pulse-slow"
-              >
-                <span class="text-2xl font-bold">Ng</span>
-              </div>
-              <div class="text-center">
-                <h3 class="text-lg font-bold mb-2 text-[#60dee7]">Angular</h3>
-                <p class="text-gray-400 text-sm">
-                  Angular 19, RxJS, NgRx, Material
-                </p>
-              </div>
-            </div>
-
-            <!-- Skill 4 -->
-            <div
-              class="flex flex-col items-center p-6 bg-black border border-gray-800 rounded-lg transform transition-all duration-300 hover:scale-105 hover:border-[#60dee7]"
-              data-aos="fade-up"
-              data-aos-delay="400"
-            >
-              <div
-                class="h-16 w-16 rounded-full flex items-center justify-center mb-4 bg-gradient-to-r from-blue-400 to-green-400 animate-pulse-slow"
-              >
-                <span class="text-2xl font-bold">UI</span>
-              </div>
-              <div class="text-center">
-                <h3 class="text-lg font-bold mb-2 text-[#60dee7]">Front-End</h3>
-                <p class="text-gray-400 text-sm">
-                  HTML5, CSS3, Tailwind, JavaScript
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- Simple Footer with just copyright -->
-    <footer class="bg-black border-t border-gray-800 py-6">
-      <div class="container mx-auto px-4">
-        <div class="text-center text-gray-400">
-          <p class="animate-pulse-slow">
-            © 2025 WebCraft. All rights reserved.
-          </p>
         </div>
       </div>
-    </footer>
+    </section>
   </div>
+
+  <!-- Footer -->
+  <footer
+    class="border-t py-8 transition-colors duration-300"
+    [ngClass]="{
+      'bg-white border-gray-200 text-gray-600': !isDarkMode,
+      'bg-gray-900 border-gray-800 text-gray-400': isDarkMode
+    }"
+  >
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-4 md:mb-0">
+          <p>
+            © 2025 Heal Tech Solutions.
+            {{
+              currentLanguage === "en"
+                ? "All rights reserved."
+                : "ყველა უფლება დაცულია."
+            }}
+          </p>
+        </div>
+        <!-- <div class="flex space-x-6">
+          <a href="#" class="hover:text-cyan-500 transition duration-300">
+            {{
+              currentLanguage === "en"
+                ? "Privacy Policy"
+                : "კონფიდენციალურობის პოლიტიკა"
+            }}
+          </a>
+          <a href="#" class="hover:text-cyan-500 transition duration-300">
+            {{
+              currentLanguage === "en"
+                ? "Terms of Service"
+                : "მომსახურების პირობები"
+            }}
+          </a>
+          <a href="#" class="hover:text-cyan-500 transition duration-300">
+            {{ currentLanguage === "en" ? "Sitemap" : "საიტის რუკა" }}
+          </a>
+        </div> -->
+      </div>
+    </div>
+  </footer>
 </div>
