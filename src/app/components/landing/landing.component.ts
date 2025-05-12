@@ -1,13 +1,10 @@
 // src/app/components/landing/landing.component.ts
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectorRef,
   Component,
   HostListener,
-  NgZone,
   OnInit,
 } from '@angular/core';
-import { ParticlesComponent } from '../../shared/particles/particles.component';
 import {
   FormBuilder,
   FormGroup,
@@ -23,7 +20,6 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   standalone: true,
   imports: [
     CommonModule,
-    ParticlesComponent,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,

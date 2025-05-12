@@ -1,20 +1,18 @@
 <!-- src/app/components/landing/landing.component.html -->
 
 <div class="min-h-screen flex flex-col" [ngClass]="{ dark: isDarkMode }">
-  <app-particles *ngIf="isDarkMode"></app-particles>
-
   <!-- Navbar -->
   <nav
-    class="sticky top-0 z-50 w-full transition-colors duration-300"
+    class="fixed top-0 z-50 w-full transition-colors duration-300"
     [ngClass]="{
       'bg-white border-b border-gray-200 shadow-sm': !isDarkMode,
       'bg-gray-900 border-b border-gray-800': isDarkMode
     }"
   >
-    <div class="container-fluid mx-auto px-6 py-4">
+    <div class="container-fluid mx-auto px-2 py-4">
       <div class="flex justify-between items-center">
         <!-- Company Name -->
-        <div class="flex items-center">
+        <div class="flex items-center text-center">
           <a
             (click)="scrollToTop()"
             style="cursor: pointer"
@@ -58,7 +56,7 @@
               'text-gray-300 hover:text-cyan-400': isDarkMode
             }"
           >
-            {{ currentLanguage === "en" ? "About" : "ჩვენს შესახებ" }}
+            {{ currentLanguage === "en" ? "About" : "ჩვენ შესახებ" }}
           </a>
           <a
             style="cursor: pointer"
@@ -74,7 +72,7 @@
         </div>
 
         <!-- Controls -->
-        <div class="flex items-center space-x-4">
+        <div class="flex items-center">
           <!-- Language Toggle -->
           <button
             (click)="toggleLanguage()"
@@ -90,7 +88,7 @@
           <!-- Dark Mode Toggle -->
           <button
             (click)="toggleDarkMode()"
-            class="p-2 rounded-full transition duration-300"
+            class="p-2 rounded-full transition duration-300 ms-4"
             [ngClass]="{
               'bg-gray-100 text-gray-700 hover:bg-gray-200': !isDarkMode,
               'bg-gray-700 text-gray-200 hover:bg-gray-600': isDarkMode
@@ -132,7 +130,7 @@
           <button
             (click)="scrollToContact()"
             style="cursor: pointer"
-            class="border px-6 py-2 rounded-lg transition duration-300"
+            class="border px-6 py-2 rounded-lg transition duration-300 hidden sm:block ms-4"
             [ngClass]="{
               'border-cyan-600 text-cyan-600 hover:bg-cyan-600 hover:text-white':
                 !isDarkMode,
@@ -148,7 +146,7 @@
   </nav>
   <!-- Main Content -->
   <div
-    class="main-content flex-grow px-6 md:px-10 transition-colors duration-300"
+    class="main-content flex-grow px-2 md:px-10 transition-colors duration-300 pt-20"
     [ngClass]="{
       'bg-white text-gray-800': !isDarkMode,
       'bg-gray-900 text-gray-100': isDarkMode
@@ -242,7 +240,11 @@
                 <!-- Logo text styled similar to navbar but larger -->
                 <div class="company-logo-large text-center">
                   <div
-                    class="text-4xl font-bold mb-2 text-gray-800 dark:text-white"
+                    class="text-4xl font-bold mb-2"
+                    [ngClass]="{
+                      'text-[#0891b2]': !isDarkMode,
+                      'text-white': isDarkMode
+                    }"
                   >
                     HEAL TECH SOLUTIONS
                   </div>
@@ -259,10 +261,9 @@
         </div>
       </div>
     </section>
-
     <!-- Services Section -->
     <section id="services" class="py-20">
-      <div class="container mx-auto px-4">
+      <div class="container mx-auto">
         <div
           class="text-center mb-16"
           data-aos="fade-up"
@@ -1064,7 +1065,7 @@
         >
           <h2 class="text-3xl md:text-4xl font-bold mb-4">
             {{
-              currentLanguage === "en" ? "About Our Company" : "ჩვენს შესახებ"
+              currentLanguage === "en" ? "About Our Company" : "ჩვენ შესახებ"
             }}
           </h2>
           <div
@@ -1088,25 +1089,13 @@
 
               <!-- Text-based logo -->
               <div
-                class="relative text-center p-8 bg-gray-900/30 backdrop-blur-sm rounded-lg transform transition-all duration-500 hover:scale-105"
+                class="relative text-center p-8 rounded-lg transform transition-all duration-500 hover:scale-105"
               >
-                <div
-                  class="text-4xl md:text-5xl font-bold mb-3"
-                  [ngClass]="{
-                    'text-gray-800': !isDarkMode,
-                    'text-white': isDarkMode
-                  }"
-                >
+                <div class="text-4xl md:text-5xl font-bold mb-3 text-white">
                   HEAL TECH SOLUTIONS
                 </div>
                 <div class="h-1 w-40 bg-cyan-500 mx-auto mb-3"></div>
-                <div
-                  class="text-xl md:text-2xl"
-                  [ngClass]="{
-                    'text-cyan-600': !isDarkMode,
-                    'text-cyan-400': isDarkMode
-                  }"
-                >
+                <div class="text-xl md:text-2xl text-cyan-200">
                   Business Technology
                 </div>
               </div>
@@ -1172,7 +1161,7 @@
             </p>
 
             <!-- Feature Grid -->
-            <div class="grid grid-cols-2 gap-4 mt-8">
+            <div class="grid md:grid-cols-2 gap-4 mt-8">
               <!-- Quality Focused -->
               <div
                 class="flex items-center transform transition-all duration-300 hover:translate-x-2"
@@ -1352,7 +1341,7 @@
           </p>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8">
           <!-- Skill 1 -->
           <div
             class="flex flex-col items-center p-6 border rounded-lg transform transition-all duration-300 hover:scale-105"
@@ -1474,7 +1463,7 @@
 
     <!-- Contact Section -->
     <section id="contact" class="py-20">
-      <div class="container mx-auto px-4">
+      <div class="container mx-auto">
         <div
           class="text-center mb-16"
           data-aos="fade-up"
@@ -1504,7 +1493,7 @@
         <div class="flex flex-col md:flex-row gap-10">
           <!-- Contact Form -->
           <div
-            class="md:w-1/2 border rounded-lg p-8"
+            class="md:w-1/2 border rounded-lg p-4"
             [ngClass]="{
               'bg-white border-gray-200': !isDarkMode,
               'bg-gray-800 border-gray-700': isDarkMode
