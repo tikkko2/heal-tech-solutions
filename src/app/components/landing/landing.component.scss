@@ -162,3 +162,58 @@ html {
 .company-logo-large .text-4xl {
   animation: textGlow 3s infinite ease-in-out;
 }
+
+.icon {
+  position: absolute;
+  &:hover {
+    transform: scale(1.2);
+    transition: transform 0.3s ease;
+  }
+}
+
+.icon-1 {
+  top: 10%;
+  left: 20%;
+}
+
+.icon-2 {
+  top: 50%;
+  left: 10%;
+  @media screen and (max-width: 768px) {
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10%;
+  }
+}
+
+.icon-3 {
+  bottom: 5%;
+  left: 20%;
+}
+
+.icon-4 {
+  top: 10%;
+  right: 20%;
+}
+
+.icon-5 {
+  bottom: 50%;
+  right: 10%;
+  @media screen and (max-width: 768px) {
+    right: 50%;
+    transform: translateX(50%);
+    bottom: 5%;
+  }
+}
+
+.icon-6 {
+  bottom: 5%;
+  right: 20%;
+}
+
+.contact-icon {
+  display: none;
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
+}
